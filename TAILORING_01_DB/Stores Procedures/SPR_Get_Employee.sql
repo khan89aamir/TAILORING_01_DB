@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th OCT 2020>
--- Update date: <>
+-- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Employee]
@@ -17,7 +17,7 @@ BEGIN
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 
 	SELECT EmpID,EmployeeCode,Name,MobileNo,(CASE Gender WHEN 1 THEN 'Male' WHEN 0 THEN 'Female' END) Gender
-	,DOB,[Address],Photo FROM dbo.EmployeeDetails WITH(NOLOCK)
+	,DOB,[Address],(CASE EmployeeType WHEN 0 THEN 'Admin' WHEN 1 THEN 'Master' END) EmployeeType,Photo FROM dbo.EmployeeDetails WITH(NOLOCK)
 
 	END TRY
 

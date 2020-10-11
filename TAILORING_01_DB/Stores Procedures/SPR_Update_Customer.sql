@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <10th OCT 2020>
--- Update date: <>
+-- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Update_Customer] 0,0,0,0,0,0
@@ -11,7 +11,6 @@ CREATE PROCEDURE [dbo].[SPR_Update_Customer]
 ,@Address NVarChar(MAX)=0
 ,@MobileNo VarChar(MAX)=0
 ,@EmailID VarChar(MAX)=0
-,@ActiveStatus BIT=0
 ,@UpdatedBy INT=0
 
 AS
@@ -22,11 +21,11 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@CustomerID,',',@Name,',',@Address,',',@MobileNo,',',@EmailID,',',@ActiveStatus,',',@UpdatedBy)
+	SET @PARAMERES=CONCAT(@CustomerID,',',@Name,',',@Address,',',@MobileNo,',',@EmailID,',',@UpdatedBy)
 	BEGIN TRANSACTION
 
 	UPDATE CustomerMaster SET
-	[Name]=@Name,[Address]=@Address,MobileNo=@MobileNo,EmailID=@EmailID,ActiveStatus=@ActiveStatus
+	[Name]=@Name,[Address]=@Address,MobileNo=@MobileNo,EmailID=@EmailID
 	,UpdatedBy=@UpdatedBy,UpdatedOn=GETDATE()
 	WHERE CustomerID=@CustomerID
 
@@ -60,4 +59,3 @@ BEGIN
 	END CATCH
 
 END
-GO

@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th OCT 2020>
--- Update date: <>
+-- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Insert_Employee] 0,0,0,0,0,0
@@ -11,6 +11,7 @@ CREATE PROCEDURE [dbo].[SPR_Insert_Employee]
 ,@MobileNo VarChar(MAX)=0
 ,@Gender BIT=0
 ,@DOB DATETIME=0
+,@EmployeeType INT=0
 ,@Address NVARCHAR(MAX)=0
 ,@Photo VARBINARY(MAX)=0
 --,@ActiveStatus BIT=0
@@ -24,16 +25,16 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@EmployeeCode,',',@Name,',',@MobileNo,',',@Gender,',',@DOB,',',@Address,',',@Photo,',',@CreatedBy)
+	SET @PARAMERES=CONCAT(@EmployeeCode,',',@Name,',',@MobileNo,',',@Gender,',',@DOB,',',@EmployeeType,',',@Address,',',@Photo,',',@CreatedBy)
 	BEGIN TRANSACTION
 
 	INSERT EmployeeDetails
 	(
-		EmployeeCode,Name,MobileNo,Gender,DOB,[Address],Photo,CreatedBy
+		EmployeeCode,Name,MobileNo,Gender,DOB,EmployeeType,[Address],Photo,CreatedBy
 	)
 	VALUES
 	(
-		@EmployeeCode,@Name,@MobileNo,@Gender,IIF(@DOB='',null,@DOB),@Address,IIF(@Photo=0,null,@Photo),@CreatedBy
+		@EmployeeCode,@Name,@MobileNo,@Gender,IIF(@DOB='',null,@DOB),@EmployeeType,@Address,IIF(@Photo=0,null,@Photo),@CreatedBy
 	)
 
 	COMMIT

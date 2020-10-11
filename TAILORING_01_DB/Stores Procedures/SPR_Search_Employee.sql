@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th OCT 2020>
--- Update date: <>
+-- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Search_Employee]
@@ -20,7 +20,7 @@ BEGIN
 	SET @PARAMERES=CONCAT(@Name,',',@MobileNo)
 
 	SELECT EmpID,EmployeeCode,Name,MobileNo,(CASE Gender WHEN 1 THEN 'Male' WHEN 0 THEN 'Female' END) Gender
-	,DOB,[Address],Photo FROM dbo.EmployeeDetails WITH(NOLOCK)
+	,DOB,[Address],(CASE EmployeeType WHEN 0 THEN 'Admin' WHEN 1 THEN 'Master' END) EmployeeType,Photo FROM dbo.EmployeeDetails WITH(NOLOCK)
 	WHERE Name LIKE IIF(@Name='0',Name,'%'+@Name+'%')
 	AND MobileNo LIKE IIF(@MobileNo='0',MobileNo,'%'+@MobileNo+'%')
 

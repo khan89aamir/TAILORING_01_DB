@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <10th OCT 2020>
--- Update date: <>
+-- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Search_Customer]
@@ -19,10 +19,9 @@ BEGIN
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	SET @PARAMERES=CONCAT(@Name,',',@MobileNo)
 
-	SELECT CustomerID,[Name],[Address],MobileNo,EmailID AS [EmailID]
-	,(CASE ActiveStatus WHEN 1 THEN 'Active' WHEN 0 THEN 'InActive' END) ActiveStatus 
+	SELECT CustomerID,[Name],[Address],MobileNo,EmailID
 	FROM dbo.CustomerMaster WITH(NOLOCK)
-	WHERE Name LIKE IIF(@Name='0',Name,'%'+@Name+'%')
+	WHERE [Name] LIKE IIF(@Name='0',[Name],'%'+@Name+'%')
 	AND MobileNo LIKE IIF(@MobileNo='0',MobileNo,'%'+@MobileNo+'%')
 
 	END TRY

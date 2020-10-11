@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <10th OCT 2020>
--- Update date: <>
+-- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Insert_Customer] 0,0,0,0,0,0
@@ -10,7 +10,6 @@ CREATE PROCEDURE [dbo].[SPR_Insert_Customer]
 ,@Address NVarChar(MAX)=0
 ,@MobileNo VarChar(MAX)=0
 ,@EmailID VarChar(MAX)=0
-,@ActiveStatus BIT=0
 ,@CreatedBy INT=0
 
 AS
@@ -21,16 +20,16 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@Name,',',@Address,',',@MobileNo,',',@EmailID,',',@ActiveStatus,',',@CreatedBy)
+	SET @PARAMERES=CONCAT(@Name,',',@Address,',',@MobileNo,',',@EmailID,',',@CreatedBy)
 	BEGIN TRANSACTION
 
 	INSERT CustomerMaster
 	(
-		[Name],[Address],MobileNo,EmailID,ActiveStatus,CreatedBy
+		[Name],[Address],MobileNo,EmailID,CreatedBy
 	)
 	VALUES
 	(
-		@Name,@Address,@MobileNo,@EmailID,@ActiveStatus,@CreatedBy
+		@Name,@Address,@MobileNo,@EmailID,@CreatedBy
 	)
 
 	COMMIT
@@ -52,9 +51,9 @@ BEGIN
 	, PARAMERES
 	)
 	SELECT  
-	ERROR_NUMBER() 
-	,ERROR_SEVERITY() 
-	,ERROR_STATE() 
+	ERROR_NUMBER()
+	,ERROR_SEVERITY()
+	,ERROR_STATE()
 	,ERROR_LINE()
 	,ERROR_MESSAGE()
 	,ERROR_PROCEDURE()
@@ -63,4 +62,3 @@ BEGIN
 	END CATCH
 
 END
-GO

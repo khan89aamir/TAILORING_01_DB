@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <10th OCT 2020>
--- Update date: <>
+-- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Customer]
@@ -16,8 +16,7 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 
-	SELECT CustomerID,Name,[Address],MobileNo,EmailID AS [EmailID]
-	,(CASE ActiveStatus WHEN 1 THEN 'Active' WHEN 0 THEN 'InActive' END) ActiveStatus 
+	SELECT CustomerID,[Name],[Address],MobileNo,EmailID
 	FROM dbo.CustomerMaster WITH(NOLOCK)
 
 	END TRY

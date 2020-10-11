@@ -84,5 +84,6 @@
     <Build Include="Stores Procedures\SPR_Search_Employee.sql" />
     <Build Include="Stores Procedures\SPR_Update_Customer.sql" />
     <Build Include="Stores Procedures\SPR_Update_Employee.sql" />
+    <Build Include="Stores Procedures\SPR_Validate_Employee.sql" />
   </ItemGroup>
 </Project>
