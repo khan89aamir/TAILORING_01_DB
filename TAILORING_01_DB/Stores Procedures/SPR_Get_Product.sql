@@ -1,11 +1,11 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <10th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Create date: <12th OCT 2020>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Customer]
-CREATE PROCEDURE [dbo].[SPR_Get_Customer]
+--EXEC [dbo].[SPR_Get_Product]
+CREATE PROCEDURE [dbo].[SPR_Get_Product]
 
 AS
 BEGIN
@@ -16,8 +16,8 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 
-	SELECT CustomerID,Name,[Address],MobileNo,EmailID
-	FROM dbo.CustomerMaster WITH(NOLOCK)
+	SELECT GarmentID,GarmentCode,GarmentName
+	FROM dbo.tblProductMaster WITH(NOLOCK)
 
 	END TRY
 

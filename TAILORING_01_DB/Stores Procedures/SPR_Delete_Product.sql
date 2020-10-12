@@ -1,11 +1,12 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <10th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Create date: <12th OCT 2020>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Customer]
-CREATE PROCEDURE [dbo].[SPR_Get_Customer]
+--EXEC [dbo].[SPR_Delete_Product] 0,0,0,0,0,0
+CREATE PROCEDURE [dbo].[SPR_Delete_Product]
+@GarmentID INT=0
 
 AS
 BEGIN
@@ -15,14 +16,20 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
+	SET @PARAMERES=@GarmentID
+	BEGIN TRANSACTION
 
-	SELECT CustomerID,Name,[Address],MobileNo,EmailID
-	FROM dbo.CustomerMaster WITH(NOLOCK)
+	DELETE FROM tblProductMaster
+	WHERE GarmentID=@GarmentID
+
+	COMMIT
 
 	END TRY
 
 	BEGIN CATCH
 	
+	ROLLBACK
+
 	INSERT [dbo].[ERROR_Log]
 	(
 	ERR_NUMBER

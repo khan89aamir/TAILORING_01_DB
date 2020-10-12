@@ -1,11 +1,12 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <10th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Create date: <12th OCT 2020>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Customer]
-CREATE PROCEDURE [dbo].[SPR_Get_Customer]
+--EXEC [dbo].[SPR_Search_Product]
+CREATE PROCEDURE [dbo].[SPR_Search_Product]
+@GarmentName NVARCHAR(MAX)='0'
 
 AS
 BEGIN
@@ -15,9 +16,11 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
+	SET @PARAMERES=@GarmentName
 
-	SELECT CustomerID,Name,[Address],MobileNo,EmailID
-	FROM dbo.CustomerMaster WITH(NOLOCK)
+	SELECT GarmentID,GarmentCode,GarmentName
+	FROM dbo.tblProductMaster WITH(NOLOCK)
+	WHERE GarmentName LIKE IIF(@GarmentName='0',GarmentName,'%'+@GarmentName+'%')
 
 	END TRY
 

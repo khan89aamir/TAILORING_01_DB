@@ -1,14 +1,14 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Validate_Employee 0,0,0
-CREATE PROCEDURE [dbo].[SPR_Validate_Employee]
-@EMPID INT=0
-,@EmployeeCode NVARCHAR(MAX)=0
-,@MobileNo VARCHAR(MAX)=0
+--EXEC SPR_Validate_Product 0,0,0
+CREATE PROCEDURE [dbo].[SPR_Validate_Product]
+@GarmentID INT=0
+,@GarmentCode NVARCHAR(MAX)=0
+,@GarmentName NVARCHAR(MAX)=0
 
 AS
 BEGIN
@@ -18,21 +18,21 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@EMPID,',',@EmployeeCode,',',@MobileNo)
+	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentCode,',',@GarmentName)
 	
-	IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
-	WHERE EmployeeCode=@EmployeeCode AND EMPID<> IIF(@EMPID=0,EMPID,@EMPID) )
+	IF EXISTS(SELECT 1 FROM dbo.tblProductMaster WITH(NOLOCK) 
+	WHERE GarmentCode=@GarmentCode AND GarmentID<> IIF(@GarmentID=0,GarmentID,@GarmentID) )
 	BEGIN
 
-		SELECT 0 AS Flag,CONCAT('EmployeeCode [',@EmployeeCode,'] is already exist.') AS MSg
+		SELECT 0 AS Flag,CONCAT('GarmentCode [',@GarmentCode,'] is already exist.') AS MSg
 	
 	END
 
-	ELSE IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
-	WHERE MobileNo=@MobileNo AND EMPID<>IIF(@EMPID=0,EMPID,@EMPID) )
+	ELSE IF EXISTS(SELECT 1 FROM dbo.tblProductMaster WITH(NOLOCK) 
+	WHERE GarmentName=@GarmentName AND GarmentID<>IIF(@GarmentID=0,GarmentID,@GarmentID) )
 	BEGIN
 
-		SELECT 2 AS Flag,CONCAT('MobileNo [',@MobileNo,'] is already exist.') AS MSg
+		SELECT 2 AS Flag,CONCAT('GarmentName [',@GarmentName,'] is already exist.') AS MSg
 	
 	END
 

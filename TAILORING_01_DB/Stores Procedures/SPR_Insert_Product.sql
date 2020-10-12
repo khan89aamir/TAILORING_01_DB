@@ -1,11 +1,14 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <10th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Create date: <12th OCT 2020>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Customer]
-CREATE PROCEDURE [dbo].[SPR_Get_Customer]
+--EXEC [dbo].[SPR_Insert_Product] 0,0,0,0,0,0
+CREATE PROCEDURE [dbo].[SPR_Insert_Product]
+@GarmentCode NVarChar(MAX)=0
+,@GarmentName NVarChar(MAX)=0
+,@CreatedBy INT=0
 
 AS
 BEGIN
@@ -15,14 +18,26 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
+	SET @PARAMERES=CONCAT(@GarmentCode,',',@GarmentName,',',@CreatedBy)
+	BEGIN TRANSACTION
 
-	SELECT CustomerID,Name,[Address],MobileNo,EmailID
-	FROM dbo.CustomerMaster WITH(NOLOCK)
+	INSERT tblProductMaster
+	(
+		GarmentCode,GarmentName,CreatedBy
+	)
+	VALUES
+	(
+		@GarmentCode,@GarmentName,@CreatedBy
+	)
+
+	COMMIT
 
 	END TRY
 
 	BEGIN CATCH
 	
+	ROLLBACK
+
 	INSERT [dbo].[ERROR_Log]
 	(
 	ERR_NUMBER

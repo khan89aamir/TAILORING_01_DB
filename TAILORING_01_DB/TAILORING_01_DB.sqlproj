@@ -85,5 +85,12 @@
     <Build Include="Stores Procedures\SPR_Update_Customer.sql" />
     <Build Include="Stores Procedures\SPR_Update_Employee.sql" />
     <Build Include="Stores Procedures\SPR_Validate_Employee.sql" />
+    <Build Include="Tables\tblProductMaster.sql" />
+    <Build Include="Stores Procedures\SPR_Delete_Product.sql" />
+    <Build Include="Stores Procedures\SPR_Get_Product.sql" />
+    <Build Include="Stores Procedures\SPR_Insert_Product.sql" />
+    <Build Include="Stores Procedures\SPR_Search_Product.sql" />
+    <Build Include="Stores Procedures\SPR_Validate_Product.sql" />
+    <Build Include="Stores Procedures\SPR_Update_Product.sql" />
   </ItemGroup>
 </Project>
