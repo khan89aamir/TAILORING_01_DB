@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Update date: <13th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Validate_Employee 0,0,0
@@ -9,6 +9,7 @@ CREATE PROCEDURE [dbo].[SPR_Validate_Employee]
 @EMPID INT=0
 ,@EmployeeCode NVARCHAR(MAX)=0
 ,@MobileNo VARCHAR(MAX)=0
+,@ActiveStatus BIT=0
 
 AS
 BEGIN
@@ -17,32 +18,84 @@ BEGIN
 	SET NOCOUNT ON;
 
 	BEGIN TRY
+	DECLARE @Activecount INT=0
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@EMPID,',',@EmployeeCode,',',@MobileNo)
+	SET @PARAMERES=CONCAT(@EMPID,',',@EmployeeCode,',',@MobileNo,',',@ActiveStatus)
 	
-	IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
-	WHERE EmployeeCode=@EmployeeCode AND EMPID<> IIF(@EMPID=0,EMPID,@EMPID) )
+	SET @Activecount=(SELECT ConfigValue FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE ConfigName='ActivationCount')
+
+	IF @EMPID = 0
 	BEGIN
 
-		SELECT 0 AS Flag,CONCAT('EmployeeCode [',@EmployeeCode,'] is already exist.') AS MSg
-	
-	END
+		IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
+		WHERE EmployeeCode=@EmployeeCode)
+		BEGIN
 
-	ELSE IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
-	WHERE MobileNo=@MobileNo AND EMPID<>IIF(@EMPID=0,EMPID,@EMPID) )
-	BEGIN
-
-		SELECT 2 AS Flag,CONCAT('MobileNo [',@MobileNo,'] is already exist.') AS MSg
+			SELECT 0 AS Flag,CONCAT('EmployeeCode [',@EmployeeCode,'] is already exist.') AS MSg
 	
+		END
+
+		ELSE IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
+		WHERE MobileNo=@MobileNo)
+		BEGIN
+
+			SELECT -1 AS Flag,CONCAT('MobileNo [',@MobileNo,'] is already exist.') AS MSg
+	
+		END
+	
+		ELSE IF (SELECT COUNT(1) FROM dbo.EmployeeDetails WITH(NOLOCK) 
+		WHERE ActiveStatus=1) >= @Activecount
+		BEGIN
+
+			SELECT -2 AS Flag,CONCAT('Employee Activation Reach maximum limit ',@Activecount) AS MSg
+	
+		END
+	 
+		ELSE
+		BEGIN
+
+			SELECT 1 AS Flag
+
+		END
+
 	END
 
 	ELSE
 	BEGIN
 
-		SELECT 1 AS Flag
+	IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
+		WHERE EmployeeCode=@EmployeeCode AND EMPID<> @EMPID)
+		BEGIN
+
+			SELECT 0 AS Flag,CONCAT('EmployeeCode [',@EmployeeCode,'] is already exist.') AS MSg
+	
+		END
+
+		ELSE IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
+		WHERE MobileNo=@MobileNo AND EMPID<>@EMPID)
+		BEGIN
+
+			SELECT -1 AS Flag,CONCAT('MobileNo [',@MobileNo,'] is already exist.') AS MSg
+	
+		END
+	
+		ELSE IF (SELECT COUNT(1) FROM dbo.EmployeeDetails WITH(NOLOCK) 
+		WHERE ActiveStatus=1) >= @Activecount
+		BEGIN
+
+			SELECT -2 AS Flag,CONCAT('Employee Activation Reach maximum limit ',@Activecount) AS MSg
+	
+		END
+	 
+		ELSE
+		BEGIN
+
+			SELECT 1 AS Flag
+
+		END
 
 	END
-	
+
 	END TRY
 
 	BEGIN CATCH

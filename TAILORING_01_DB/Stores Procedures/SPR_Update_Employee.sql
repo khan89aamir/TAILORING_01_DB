@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Update date: <13th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Update_Employee] 0,0,0,0,0,0
@@ -15,7 +15,7 @@ CREATE PROCEDURE [dbo].[SPR_Update_Employee]
 ,@EmployeeType INT=0
 ,@Address NVARCHAR(MAX)=0
 ,@Photo VARBINARY(MAX)=0
---,@ActiveStatus BIT=0
+,@ActiveStatus BIT=0
 ,@UpdatedBy INT=0
 
 AS
@@ -26,13 +26,13 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@EmployeeCode,',',@Name,',',@MobileNo,',',@Gender,',',@DOB,',',@EmployeeType,',',@Address,',',@Photo,',',@UpdatedBy)
+	SET @PARAMERES=CONCAT(@EmployeeCode,',',@Name,',',@MobileNo,',',@Gender,',',@DOB,',',@EmployeeType,',',@Address,',',@Photo,',',@ActiveStatus,',',@UpdatedBy)
 	BEGIN TRANSACTION
 
 	UPDATE EmployeeDetails SET
 	EmployeeCode=@EmployeeCode,Name=@Name,MobileNo=@MobileNo,Gender=@Gender,DOB=IIF(@DOB='',null,@DOB)
 	,EmployeeType=@EmployeeType,[Address]=@Address
-	,Photo=IIF(@Photo=0,null,@Photo),UpdatedBy=@UpdatedBy,UpdatedOn=GETDATE()
+	,Photo=IIF(@Photo=0,null,@Photo),ActiveStatus=@ActiveStatus,UpdatedBy=@UpdatedBy,UpdatedOn=GETDATE()
 	WHERE EMPID=@EMPID
 
 	COMMIT
@@ -65,4 +65,3 @@ BEGIN
 	END CATCH
 
 END
-GO

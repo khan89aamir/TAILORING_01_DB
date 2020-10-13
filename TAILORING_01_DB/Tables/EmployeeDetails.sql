@@ -8,6 +8,7 @@
 	[Address] [nvarchar](max) NULL,
 	[Photo] [varbinary](max) NULL,
 	[EmployeeType] [int] NULL,
+	[ActiveStatus] [bit] NOT NULL DEFAULT 1,
 	[CreatedBy] [int] NOT NULL CONSTRAINT [DF_EmployeeDetails_CreatedBy]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NOT NULL CONSTRAINT [DF_EmployeeDetails_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,

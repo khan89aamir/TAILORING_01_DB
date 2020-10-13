@@ -1,14 +1,14 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Update date: <13th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Search_Employee]
 CREATE PROCEDURE [dbo].[SPR_Search_Employee]
 @Name NVARCHAR(MAX)='0'
 ,@MobileNo VARCHAR(MAX)='0'
-
+,@EmpID INT=0
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -17,11 +17,14 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@Name,',',@MobileNo)
+	SET @PARAMERES=CONCAT(@Name,',',@MobileNo,',',@EmpID)
 
 	SELECT EmpID,EmployeeCode,Name,MobileNo,(CASE Gender WHEN 1 THEN 'Male' WHEN 0 THEN 'Female' END) Gender
-	,DOB,[Address],(CASE EmployeeType WHEN 0 THEN 'Admin' WHEN 1 THEN 'Master' END) EmployeeType,Photo FROM dbo.EmployeeDetails WITH(NOLOCK)
-	WHERE Name LIKE IIF(@Name='0',Name,'%'+@Name+'%')
+	,DOB,[Address],(CASE EmployeeType WHEN 0 THEN 'Admin' WHEN 1 THEN 'Master' END) EmployeeType
+	,Photo,(CASE ActiveStatus WHEN 1 THEN 'Active' WHEN 0 THEN 'InActive' END) ActiveStatus
+	FROM dbo.EmployeeDetails WITH(NOLOCK)
+	WHERE EmpID=IIF(@EmpID=0,EmpID,@EmpID)
+	AND Name LIKE IIF(@Name='0',Name,'%'+@Name+'%')
 	AND MobileNo LIKE IIF(@MobileNo='0',MobileNo,'%'+@MobileNo+'%')
 
 	END TRY
@@ -50,4 +53,3 @@ BEGIN
 	END CATCH
 
 END
-GO
