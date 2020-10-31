@@ -118,8 +118,25 @@
     <Build Include="Stores Procedures\SPR_Validate_Product.sql" />
     <Build Include="Stores Procedures\SPR_Update_Product.sql" />
     <Build Include="Tables\tblTailoringConfig.sql" />
+    <Build Include="Tables\tblMeasurementMaster.sql" />
+    <Build Include="Tables\tblStyleMaster.sql" />
+    <Build Include="Tables\GarmentMeasurementMapping.sql" />
+    <Build Include="Tables\GarmentStyleMapping.sql" />
+    <Build Include="Tables\tblStyleImageMaster.sql" />
+    <Build Include="Tables\tblSalesOrder.sql" />
+    <Build Include="Tables\tblSalesOrderDetails.sql" />
+    <Build Include="Tables\tblCustomerMeasurement.sql" />
+    <Build Include="Tables\tblCustomerStyle.sql" />
+    <Build Include="Tables\tblFitTypeMaster.sql" />
+    <Build Include="Tables\tblStichTypeMaster.sql" />
+    <Build Include="Stores Procedures\SPR_Get_GarmentMeasurement.sql" />
+    <Build Include="Stores Procedures\SPR_Get_GarmentStyle.sql" />
+    <Build Include="Stores Procedures\SPR_Get_GarmentStyle_Images.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="TAILORING_01_DB.refactorlog" />
   </ItemGroup>
 </Project>

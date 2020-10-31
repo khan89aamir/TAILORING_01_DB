@@ -1,16 +1,12 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <12th OCT 2020>
--- Update date: <20th OCT 2020>
+-- Create date: <22nd OCT 2020>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Insert_Product] 0,0,0,0,0,0
-CREATE PROCEDURE [dbo].[SPR_Insert_Product]
-@GarmentCode NVarChar(MAX)=0
-,@GarmentName NVarChar(MAX)=0
-,@Rate DECIMAL(18,2)=0
-,@OrderType INT=0
-,@CreatedBy INT=0
+--EXEC [dbo].[SPR_Get_GarmentStyle] 1
+CREATE PROCEDURE [dbo].[SPR_Get_GarmentStyle]
+@GarmentID INT=0
 
 AS
 BEGIN
@@ -20,26 +16,18 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@GarmentCode,',',@GarmentName,',',@Rate,',',@OrderType,',',@CreatedBy)
-	BEGIN TRANSACTION
+	SET @PARAMERES=@GarmentID
 
-	INSERT tblProductMaster
-	(
-		GarmentCode,GarmentName,Rate,OrderType,CreatedBy
-	)
-	VALUES
-	(
-		@GarmentCode,@GarmentName,@Rate,@OrderType,@CreatedBy
-	)
-
-	COMMIT
+	SELECT sp.StyleID,sm.StyleName
+	FROM [GarmentStyleMapping] sp
+	INNER JOIN [tblStyleMaster] sm ON sp.StyleID=sm.StyleID
+	INNER JOIN [tblProductMaster] pm ON sp.GarmentID=pm.GarmentID
+	WHERE sp.GarmentID=@GarmentID
 
 	END TRY
 
 	BEGIN CATCH
 	
-	ROLLBACK
-
 	INSERT [dbo].[ERROR_Log]
 	(
 	ERR_NUMBER

@@ -4,6 +4,8 @@
 	[MobileNo] [varchar](20) NOT NULL,
 	[EmailID] [varchar](50) NULL,
 	[Address] [nvarchar](1000) NULL,
+	[Gender] [bit] NULL CONSTRAINT [DF_CustomerMaster_Gender]  DEFAULT ((1)),
+	[ActiveStatus] [bit] NOT NULL CONSTRAINT [DF_CustomerMaster_ActiveStatus]  DEFAULT ((1)),
 	[CreatedBy] [int] NOT NULL CONSTRAINT [DF__CustomerM__Creat__1273C1CD]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NOT NULL CONSTRAINT [DF_CustomerMaster_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,

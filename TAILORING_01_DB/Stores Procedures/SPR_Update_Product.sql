@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <>
+-- Update date: <20th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Update_Product] 0,0,0,0,0,0
@@ -9,6 +9,8 @@ CREATE PROCEDURE [dbo].[SPR_Update_Product]
 @GarmentID INT=0
 ,@GarmentCode NVarChar(MAX)=0
 ,@GarmentName NVarChar(MAX)=0
+,@Rate DECIMAL(18,2)=0
+,@OrderType INT=0
 ,@UpdatedBy INT=0
 
 AS
@@ -19,11 +21,12 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentCode,',',@GarmentName,',',@UpdatedBy)
+	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentCode,',',@GarmentName,',',@Rate,',',@OrderType,',',@UpdatedBy)
 	BEGIN TRANSACTION
 
 	UPDATE tblProductMaster SET
 	GarmentCode=@GarmentCode,GarmentName=@GarmentName
+	,Rate=@Rate,OrderType=@OrderType
 	,UpdatedBy=@UpdatedBy,UpdatedOn=GETDATE()
 	WHERE GarmentID=@GarmentID
 

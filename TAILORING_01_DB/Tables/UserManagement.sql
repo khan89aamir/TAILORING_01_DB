@@ -5,6 +5,7 @@
 	[EmailID] [varchar](50) NULL,
 	[EmployeeID] [int] NULL,
 	[IsAdmin] [bit] NULL,
+	[ActiveStatus] [bit] NULL CONSTRAINT [DF_UserManagement_ActiveStatus]  DEFAULT ((1)),
 	[SecurityQuestion] [nvarchar](50) NULL,
 	[Answer] [nvarchar](100) NULL,
 	[CreatedBy] [int] NULL CONSTRAINT [DF_UserManagement_CreatedBy]  DEFAULT ((0)),
