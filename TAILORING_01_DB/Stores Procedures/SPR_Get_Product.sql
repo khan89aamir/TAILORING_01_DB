@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <19th OCT 2020>
+-- Update date: <01st Nov 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Product]
@@ -18,6 +18,7 @@ BEGIN
 
 	SELECT GarmentID,GarmentCode,GarmentName,Rate
 	,(CASE OrderType WHEN 0 THEN 'Normal' WHEN 1 THEN 'Urgent' END)OrderType
+	,Photo
 	FROM dbo.tblProductMaster WITH(NOLOCK)
 
 	END TRY
