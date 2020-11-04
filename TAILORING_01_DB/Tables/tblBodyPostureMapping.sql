@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblBodyPostureMapping](
 	[BodyPostureMappingID] [int] IDENTITY(1,1) NOT NULL,
 	[BodyPostureID] [int] NOT NULL,
+	[BodyPostureName] [varchar](50) NOT NULL,
 	[BodyPostureImage] [varchar](100) NOT NULL,
  CONSTRAINT [PK_tblBodyPostureMapping] PRIMARY KEY CLUSTERED 
 (
