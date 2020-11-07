@@ -64,7 +64,7 @@ BEGIN
 	BEGIN
 
 	IF EXISTS(SELECT 1 FROM dbo.EmployeeDetails WITH(NOLOCK) 
-		WHERE EmployeeCode=@EmployeeCode AND EMPID<> @EMPID)
+		WHERE EmployeeCode=@EmployeeCode AND EmpID<> @EMPID)
 		BEGIN
 
 			SELECT 0 AS Flag,CONCAT('EmployeeCode [',@EmployeeCode,'] is already exist.') AS MSg

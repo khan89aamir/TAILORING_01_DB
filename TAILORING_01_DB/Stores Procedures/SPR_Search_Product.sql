@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <01st Nov 2020>
+-- Update date: <06th Nov 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Search_Product]
@@ -17,10 +17,14 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	SET @PARAMERES=@GarmentName
+	DECLARE @IMGPATH VARCHAR(MAX)=''
+
+	SET @IMGPATH=(SELECT [ConfigValue]
+	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
 
 	SELECT GarmentID,GarmentCode,GarmentName,Rate
 	,(CASE OrderType WHEN 0 THEN 'Normal' WHEN 1 THEN 'Urgent' END)OrderType
-	,Photo
+	,GarmentType,IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo
 	FROM dbo.tblProductMaster WITH(NOLOCK)
 	WHERE GarmentName LIKE IIF(@GarmentName='0',GarmentName,'%'+@GarmentName+'%')
 

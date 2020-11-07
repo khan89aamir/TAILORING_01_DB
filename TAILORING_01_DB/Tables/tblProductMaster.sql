@@ -5,6 +5,7 @@
 	[Rate] [decimal](18, 2) NULL,
 	[Photo] [varchar](100) NULL,
 	[OrderType] [int] NULL CONSTRAINT [DF_tblProductMaster_OrderType]  DEFAULT ((0)),
+	[GarmentType] [varchar](50) NULL,
 	[CreatedBy] [int] NOT NULL CONSTRAINT [DF_tblProductMaster_CreatedBy]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NOT NULL CONSTRAINT [DF_tblProductMaster_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,

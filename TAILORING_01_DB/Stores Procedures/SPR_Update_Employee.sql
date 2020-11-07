@@ -33,7 +33,7 @@ BEGIN
 	EmployeeCode=@EmployeeCode,Name=@Name,MobileNo=@MobileNo,Gender=@Gender,DOB=IIF(@DOB='',null,@DOB)
 	,EmployeeType=@EmployeeType,[Address]=@Address
 	,Photo=IIF(@Photo=0,null,@Photo),ActiveStatus=@ActiveStatus,UpdatedBy=@UpdatedBy,UpdatedOn=GETDATE()
-	WHERE EMPID=@EMPID
+	WHERE EmpID=@EMPID
 
 	COMMIT
 

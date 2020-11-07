@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <22nd OCT 2020>
--- Update date: <1st November 2020>
+-- Update date: <06th November 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_GarmentStyle_Images] 1,11
@@ -18,9 +18,14 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	SET @PARAMERES=CONCAT(@GarmentID,',',@StyleID)
+	DECLARE @IMGPATH VARCHAR(MAX)=''
 
-	SELECT sim.StyleImageID,sp.StyleID,sim.ImageName [ImagePath]
-	,REPLACE(REPLACE(sim.ImageName,'C:\Tailoring Images\',''),'.jpg','') [ImageName]
+	SET @IMGPATH=(SELECT [ConfigValue]
+	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='ImagePath')
+
+	SELECT sim.StyleImageID,sp.StyleID,sim.ImageName [ImageName]
+	--,REPLACE(REPLACE(sim.ImageName,'C:\Tailoring Images\',''),'.jpg','') [ImageName]
+	,CONCAT(@IMGPATH,sim.ImageName) [ImagePath]
 	FROM [GarmentStyleMapping] sp
 	INNER JOIN [tblStyleMaster] sm ON sp.StyleID=sm.StyleID
 	INNER JOIN [tblProductMaster] pm ON sp.GarmentID=pm.GarmentID
