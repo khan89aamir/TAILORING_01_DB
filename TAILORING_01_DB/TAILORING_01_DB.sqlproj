@@ -87,6 +87,7 @@
     <Folder Include="Tables" />
     <Folder Include="Triggers" />
     <Folder Include="Views" />
+    <Folder Include="Table Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\CompanyMaster.sql" />
@@ -138,6 +139,13 @@
     <Build Include="Stores Procedures\SPR_Get_StichType.sql" />
     <Build Include="Stores Procedures\SPR_Get_TailoringConfig.sql" />
     <Build Include="Stores Procedures\SPR_Get_BodyPosture_ByGarmentID.sql" />
+    <Build Include="Table Types\tblSalesOrderDetailsType.sql" />
+    <Build Include="Table Types\tblCustomerMeasurementType.sql" />
+    <Build Include="Table Types\tblCustomerStyleType.sql" />
+    <Build Include="Table Types\tblCustomerBodyPostureType.sql" />
+    <Build Include="Sequances\Seq_Invoice.sql" />
+    <Build Include="Stores Procedures\SPR_Insert_SalesOrderDetails.sql" />
+    <Build Include="Tables\tblCustomerBodyPosture.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
