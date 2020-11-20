@@ -138,6 +138,7 @@
     <Build Include="Stores Procedures\SPR_Get_StichType.sql" />
     <Build Include="Stores Procedures\SPR_Get_TailoringConfig.sql" />
     <Build Include="Stores Procedures\SPR_Get_BodyPosture_ByGarmentID.sql" />
+    <Build Include="Tables\tblMobileActivation.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />

@@ -25,6 +25,7 @@ GO
 
 
 TRUNCATE TABLE [dbo].[tblFitTypeMaster]
+SET IDENTITY_INSERT [dbo].[tblFitTypeMaster] ON 
 
 INSERT INTO [dbo].[tblFitTypeMaster](FitTypeID,FitTypeName)
 VALUES(1,'Slim Fit')
@@ -37,10 +38,11 @@ GO
 INSERT INTO [dbo].[tblFitTypeMaster](FitTypeID,FitTypeName)
 VALUES(3,'Comfort Fit')
 GO
-
+SET IDENTITY_INSERT [dbo].[tblFitTypeMaster] OFF 
 
 TRUNCATE TABLE [dbo].[tblStichTypeMaster]
 
+SET IDENTITY_INSERT [dbo].[tblStichTypeMaster] ON 
 INSERT INTO [dbo].[tblStichTypeMaster](StichTypeID,StichTypeName)
 VALUES(1,'Trail')
 GO
@@ -48,10 +50,11 @@ GO
 INSERT INTO [dbo].[tblStichTypeMaster](StichTypeID,StichTypeName)
 VALUES(2,'Finish')
 GO
-
+SET IDENTITY_INSERT [dbo].[tblStichTypeMaster] OFF 
 
 TRUNCATE TABLE [dbo].[tblBodyPostureMaster]
 
+SET IDENTITY_INSERT [dbo].[tblBodyPostureMaster] ON 
 INSERT INTO [dbo].[tblBodyPostureMaster](BodyPostureID,BodyPostureType,GarmentType)
 VALUES(1,'Stmouch','Top')
 GO
@@ -67,3 +70,5 @@ GO
 INSERT INTO [dbo].[tblBodyPostureMaster](BodyPostureID,BodyPostureType,GarmentType)
 VALUES(4,'Leg Shape','Bottom')
 GO
+
+SET IDENTITY_INSERT [dbo].[tblBodyPostureMaster] OFF
