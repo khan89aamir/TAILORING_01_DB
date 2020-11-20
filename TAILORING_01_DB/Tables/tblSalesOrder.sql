@@ -7,6 +7,8 @@
 	[AdvanceAmount] [decimal](18, 2) NULL DEFAULT 0,
 	[OrderAmount] [decimal](18, 2) NOT NULL,
 	[OrderQTY] [int] NOT NULL,
+	[TotalAmount] [decimal](18, 2) NULL,
+	[OrderMode] [varchar](50) NULL,
 	[CreatedBy] [int] NOT NULL DEFAULT 0,
 	[CreatedOn] [datetime] NOT NULL DEFAULT getdate(),
 	[UpdatedBy] [int] NULL,

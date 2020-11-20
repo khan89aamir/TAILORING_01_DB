@@ -4,6 +4,7 @@
 	[GarmentID] [int] NOT NULL,
 	[BodyPostureID] [int] NOT NULL,
 	[BodyPostureMappingID] [int] NOT NULL,
+	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL DEFAULT 0,
 	[CreatedOn] [datetime] NOT NULL DEFAULT getdate(),
 	[UpdatedBy] [int] NULL,

@@ -4,6 +4,7 @@
 	[Address] [nvarchar](max) NULL,
 	[MobileNo] [varchar](20) NULL,
 	[EmailID] [varchar](50) NULL,
+	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL,
 	[CreatedOn] [datetime] NOT NULL,
 	[UpdatedBy] [int] NULL,

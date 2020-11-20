@@ -3,6 +3,7 @@
 	[GarmentID] [int] NOT NULL,
 	[StyleID] [int] NOT NULL,
 	[ImageName] [varchar](100) NOT NULL,
+	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL CONSTRAINT [DF_StyleImageMaster_CreatedBy]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NOT NULL CONSTRAINT [DF_StyleImageMaster_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,

@@ -3,6 +3,7 @@
 	[StyleID] [int] NOT NULL,
 	[TypeID] [int] NOT NULL,
 	[GarmentID] [int] NULL,
+	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL CONSTRAINT [DF_GarmentStyleMapping_CreatedBy]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NOT NULL CONSTRAINT [DF_GarmentStyleMapping_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,

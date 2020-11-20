@@ -4,6 +4,7 @@
 	[TypeID] [int] NOT NULL,
 	[GarmentID] [int] NOT NULL,
 	[IsMandatory] [bit] NULL CONSTRAINT [DF_GarmentMeasurementMapping_IsMandatory]  DEFAULT ((0)),
+	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL CONSTRAINT [DF_GarmentMeasurementMapping_CreatedBy]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NOT NULL CONSTRAINT [DF_GarmentMeasurementMapping_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,

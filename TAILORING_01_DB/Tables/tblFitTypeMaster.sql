@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblFitTypeMaster](
 	[FitTypeID] [int] IDENTITY(1,1) NOT NULL,
 	[FitTypeName] [nvarchar](100) NOT NULL,
+	[LastChange] [timestamp] NULL,
  CONSTRAINT [PK_tblFitTypeMaster] PRIMARY KEY CLUSTERED 
 (
 	[FitTypeID] ASC

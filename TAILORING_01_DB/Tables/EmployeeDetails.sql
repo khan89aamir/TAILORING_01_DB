@@ -9,6 +9,7 @@
 	[Photo] [varbinary](max) NULL,
 	[EmployeeType] [int] NULL,
 	[ActiveStatus] [bit] NOT NULL DEFAULT 1,
+	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL CONSTRAINT [DF_EmployeeDetails_CreatedBy]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NOT NULL CONSTRAINT [DF_EmployeeDetails_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,
