@@ -165,6 +165,8 @@
     <Build Include="Triggers\TRtblTempProductRateMaster.sql" />
     <Build Include="Triggers\TRtblTempStyleImageMasterMapping.sql" />
     <Build Include="Triggers\TRtblTempStyleMaster.sql" />
+    <Build Include="Stores Procedures\SPR_Get_OrderDetails.sql" />
+    <Build Include="Stores Procedures\SPR_Get_OrderList.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
