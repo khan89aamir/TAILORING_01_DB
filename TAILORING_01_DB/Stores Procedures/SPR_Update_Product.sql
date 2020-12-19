@@ -9,8 +9,6 @@ CREATE PROCEDURE [dbo].[SPR_Update_Product]
 @GarmentID INT=0
 ,@GarmentCode NVarChar(MAX)=0
 ,@GarmentName NVarChar(MAX)=0
-,@Rate DECIMAL(18,2)=0
-,@OrderType INT=0
 ,@GarmentType VARCHAR(MAX)=0
 ,@UpdatedBy INT=0
 
@@ -22,12 +20,12 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentCode,',',@GarmentName,',',@Rate,',',@OrderType,',',@GarmentType,',',@UpdatedBy)
+	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentCode,',',@GarmentName,',',@GarmentType,',',@UpdatedBy)
 	BEGIN TRANSACTION
 
 	UPDATE tblProductMaster SET
 	GarmentCode=@GarmentCode,GarmentName=@GarmentName
-	,Rate=@Rate,OrderType=@OrderType,GarmentType=@GarmentType
+	,GarmentType=@GarmentType
 	,UpdatedBy=@UpdatedBy,UpdatedOn=GETDATE()
 	WHERE GarmentID=@GarmentID
 

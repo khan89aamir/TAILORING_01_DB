@@ -5,7 +5,7 @@
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_BodyPosture_ByGarmentID 1
-CREATE PROCEDURE SPR_Get_BodyPosture_ByGarmentID
+CREATE PROCEDURE [dbo].[SPR_Get_BodyPosture_ByGarmentID]
 @GarmentID INT=0
 
 AS

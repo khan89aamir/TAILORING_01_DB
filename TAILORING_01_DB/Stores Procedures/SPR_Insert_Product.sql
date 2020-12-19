@@ -8,8 +8,6 @@
 CREATE PROCEDURE [dbo].[SPR_Insert_Product]
 @GarmentCode NVarChar(MAX)=0
 ,@GarmentName NVarChar(MAX)=0
-,@Rate DECIMAL(18,2)=0
-,@OrderType INT=0
 ,@GarmentType VARCHAR(MAX)=0
 ,@CreatedBy INT=0
 
@@ -21,16 +19,16 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@GarmentCode,',',@GarmentName,',',@Rate,',',@OrderType,',',@GarmentType,',',@CreatedBy)
+	SET @PARAMERES=CONCAT(@GarmentCode,',',@GarmentName,',',@GarmentType,',',@CreatedBy)
 	BEGIN TRANSACTION
 
 	INSERT tblProductMaster
 	(
-		GarmentCode,GarmentName,Rate,OrderType,GarmentType,CreatedBy
+		GarmentCode,GarmentName,GarmentType,CreatedBy
 	)
 	VALUES
 	(
-		@GarmentCode,@GarmentName,@Rate,@OrderType,@GarmentType,@CreatedBy
+		@GarmentCode,@GarmentName,@GarmentType,@CreatedBy
 	)
 
 	COMMIT

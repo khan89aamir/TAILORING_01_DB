@@ -20,8 +20,7 @@ BEGIN
 	SET @IMGPATH=(SELECT [ConfigValue]
 	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
 
-	SELECT GarmentID,GarmentCode,GarmentName,Rate
-	,(CASE OrderType WHEN 0 THEN 'Normal' WHEN 1 THEN 'Urgent' END)OrderType
+	SELECT GarmentID,GarmentCode,GarmentName
 	,GarmentType, IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo
 	FROM dbo.tblProductMaster WITH(NOLOCK)
 

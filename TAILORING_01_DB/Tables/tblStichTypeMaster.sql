@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblStichTypeMaster](
 	[StichTypeID] [int] IDENTITY(1,1) NOT NULL,
 	[StichTypeName] [nvarchar](100) NOT NULL,
+	[LastChange] [timestamp] NULL,
  CONSTRAINT [PK_tblStichTypeMaster] PRIMARY KEY CLUSTERED 
 (
 	[StichTypeID] ASC

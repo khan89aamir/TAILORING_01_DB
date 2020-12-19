@@ -3,6 +3,7 @@
 	[BodyPostureID] [int] NOT NULL,
 	[BodyPostureName] [varchar](50) NOT NULL,
 	[BodyPostureImage] [varchar](100) NOT NULL,
+	[LastChange] [timestamp] NULL,
  CONSTRAINT [PK_tblBodyPostureMapping] PRIMARY KEY CLUSTERED 
 (
 	[BodyPostureMappingID] ASC

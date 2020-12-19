@@ -87,6 +87,7 @@
     <Folder Include="Tables" />
     <Folder Include="Triggers" />
     <Folder Include="Views" />
+    <Folder Include="Table Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\CompanyMaster.sql" />
@@ -138,7 +139,34 @@
     <Build Include="Stores Procedures\SPR_Get_StichType.sql" />
     <Build Include="Stores Procedures\SPR_Get_TailoringConfig.sql" />
     <Build Include="Stores Procedures\SPR_Get_BodyPosture_ByGarmentID.sql" />
-    <Build Include="Tables\tblMobileActivation.sql" />
+    <Build Include="Table Types\tblSalesOrderDetailsType.sql" />
+    <Build Include="Table Types\tblCustomerMeasurementType.sql" />
+    <Build Include="Table Types\tblCustomerStyleType.sql" />
+    <Build Include="Table Types\tblCustomerBodyPostureType.sql" />
+    <Build Include="Sequances\Seq_Invoice.sql" />
+    <Build Include="Stores Procedures\SPR_Insert_SalesOrderDetails.sql" />
+    <Build Include="Tables\tblCustomerBodyPosture.sql" />
+    <Build Include="Tables\tblProductRateMaster.sql" />
+    <Build Include="Tables\tblTempBodyPostureMapping.sql" />
+    <Build Include="Tables\tblTempProductMaster.sql" />
+    <Build Include="Tables\tblTempBodyPostureMaster.sql" />
+    <Build Include="Tables\tblTempGarmentMeasureMapping.sql" />
+    <Build Include="Tables\tblTempGarmentStyleMapping.sql" />
+    <Build Include="Tables\tblTempMeasurementMaster.sql" />
+    <Build Include="Tables\tblTempProductRateMaster.sql" />
+    <Build Include="Tables\tblTempStyleImageMaster.sql" />
+    <Build Include="Tables\tblTempStyleMaster.sql" />
+    <Build Include="Triggers\TRtblTempBodyPostureMapping.sql" />
+    <Build Include="Triggers\TRtblTempBodyPostureMaster.sql" />
+    <Build Include="Triggers\TRGarmentMeasureMapping.sql" />
+    <Build Include="Triggers\TRGarmentStyleMapping.sql" />
+    <Build Include="Triggers\TRtblTempMeasurementMaster.sql" />
+    <Build Include="Triggers\TRtblTempProductMaster.sql" />
+    <Build Include="Triggers\TRtblTempProductRateMaster.sql" />
+    <Build Include="Triggers\TRtblTempStyleImageMasterMapping.sql" />
+    <Build Include="Triggers\TRtblTempStyleMaster.sql" />
+    <Build Include="Stores Procedures\SPR_Get_OrderDetails.sql" />
+    <Build Include="Stores Procedures\SPR_Get_OrderList.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />

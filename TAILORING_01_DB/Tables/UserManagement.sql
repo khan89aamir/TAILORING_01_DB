@@ -8,6 +8,7 @@
 	[ActiveStatus] [bit] NULL CONSTRAINT [DF_UserManagement_ActiveStatus]  DEFAULT ((1)),
 	[SecurityQuestion] [nvarchar](50) NULL,
 	[Answer] [nvarchar](100) NULL,
+	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NULL CONSTRAINT [DF_UserManagement_CreatedBy]  DEFAULT ((0)),
 	[CreatedOn] [datetime] NULL CONSTRAINT [DF_UserManagement_CreatedOn]  DEFAULT (getdate()),
 	[UpdatedBy] [int] NULL,
