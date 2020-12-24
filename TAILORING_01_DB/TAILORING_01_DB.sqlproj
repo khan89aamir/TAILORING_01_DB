@@ -169,6 +169,7 @@
     <Build Include="Stores Procedures\SPR_Get_OrderList.sql" />
     <Build Include="Views\vw_GarmentStyleImgMapping.sql" />
     <Build Include="Views\vw_GarmentStyleMapping.sql" />
+    <Build Include="Tables\tblMobileActivation_1.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
