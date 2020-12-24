@@ -167,11 +167,16 @@
     <Build Include="Triggers\TRtblTempStyleMaster.sql" />
     <Build Include="Stores Procedures\SPR_Get_OrderDetails.sql" />
     <Build Include="Stores Procedures\SPR_Get_OrderList.sql" />
+    <Build Include="Views\vw_GarmentStyleImgMapping.sql" />
+    <Build Include="Views\vw_GarmentStyleMapping.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TAILORING_01_DB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TAILORING_01_DB.publish.xml" />
   </ItemGroup>
 </Project>
