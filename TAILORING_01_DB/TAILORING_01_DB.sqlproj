@@ -167,6 +167,8 @@
     <Build Include="Triggers\TRtblTempStyleMaster.sql" />
     <Build Include="Stores Procedures\SPR_Get_OrderDetails.sql" />
     <Build Include="Stores Procedures\SPR_Get_OrderList.sql" />
+    <Build Include="Views\vw_GarmentStyleImgMapping.sql" />
+    <Build Include="Views\vw_GarmentStyleMapping.sql" />
     <Build Include="Tables\tblMobileActivation_1.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -174,5 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TAILORING_01_DB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TAILORING_01_DB.publish.xml" />
   </ItemGroup>
 </Project>
