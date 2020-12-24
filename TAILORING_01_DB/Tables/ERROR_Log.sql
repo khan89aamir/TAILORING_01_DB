@@ -7,7 +7,7 @@
 	[ERR_MESSAGE] [varchar](max) NOT NULL,
 	[ERR_PROCEDURE] [varchar](max) NOT NULL,
 	[PARAMERES] [varchar](max) NOT NULL,
-	[CreatedOn] [datetime] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL DEFAULT getdate(),
  CONSTRAINT [PK_ERROR_Log] PRIMARY KEY CLUSTERED 
 (
 	[ERR_ID] ASC
