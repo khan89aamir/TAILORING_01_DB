@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <09th DEC 2020>
--- Update date: <>
+-- Update date: <25th DEC 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_OrderDetails] 0
@@ -20,7 +20,8 @@ BEGIN
 
 
 	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,st.StichTypeName
-	,ft.FitTypeName,sd.TrimAmount,sd.QTY,sd.Rate
+	,ft.FitTypeName,sd.TrimAmount,sd.QTY,sd.Rate,
+	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service],sd.TrailDate,sd.DeliveryDate
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID

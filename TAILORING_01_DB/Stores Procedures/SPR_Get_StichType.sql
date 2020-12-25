@@ -1,11 +1,11 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <5th NOV 2020>
--- UPDATE date: <>
+-- UPDATE date: <25th DEC 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_StichType
-CREATE PROCEDURE SPR_Get_StichType
+CREATE PROCEDURE [dbo].[SPR_Get_StichType]
 --@GarmentID INT=0
 
 AS
@@ -15,7 +15,7 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 
-	SELECT StichTypeID,StichTypeName FROM 
+	SELECT StichTypeID,StichTypeName,CONVERT(INT,LastChange) LastChange FROM 
 	[dbo].[tblStichTypeMaster] WITH(NOLOCK)
 
 	END TRY

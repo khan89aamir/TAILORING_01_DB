@@ -1,12 +1,12 @@
-﻿-- =============================================
+﻿
+ -- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <25th DEC 2020>
--- Update date: <13th OCT 2020>
+-- Create date: <12th DEC 2020>
+-- Update date: <25th DEC 2020>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Employee]
-CREATE PROCEDURE [dbo].[SPR_Get_Employee]
-@EmpID INT=0
+--EXEC [dbo].[SPR_Get_Company]
+CREATE PROCEDURE [dbo].[SPR_Get_Company]
 
 AS
 BEGIN
@@ -17,12 +17,11 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 
-	SELECT EmpID,EmployeeCode,Name,MobileNo,(CASE Gender WHEN 1 THEN 'Male' WHEN 0 THEN 'Female' END) Gender
-	,DOB,[Address],(CASE EmployeeType WHEN 0 THEN 'Admin' WHEN 1 THEN 'Master' END) EmployeeType
-	,Photo,(CASE ActiveStatus WHEN 1 THEN 'Active' WHEN 0 THEN 'InActive' END) ActiveStatus
+	SELECT CompanyID,CompanyName,[Address],MobileNo,EmailID
+	,(CASE IsDefault WHEN 1 THEN 'Yes' WHEN 0 THEN 'No' END) IsDefault
+	,IsDefault [DefaultValue]
 	,CONVERT(INT,LastChange) LastChange
-	FROM dbo.EmployeeDetails WITH(NOLOCK)
-	WHERE EmpID=IIF(@EmpID=0,EmpID,@EmpID)
+	FROM dbo.CompanyMaster WITH(NOLOCK)
 
 	END TRY
 

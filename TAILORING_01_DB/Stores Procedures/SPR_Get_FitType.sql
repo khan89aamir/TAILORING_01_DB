@@ -1,11 +1,11 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <5th NOV 2020>
--- UPDATE date: <>
+-- UPDATE date: <25th DEC 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_FitType
-CREATE PROCEDURE SPR_Get_FitType
+CREATE PROCEDURE [dbo].[SPR_Get_FitType]
 
 AS
 BEGIN
@@ -14,7 +14,7 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	
-	SELECT FitTypeID,FitTypeName FROM 
+	SELECT FitTypeID,FitTypeName,CONVERT(INT,LastChange) LastChange FROM 
 	[dbo].[tblFitTypeMaster] WITH(NOLOCK)
 
 	END TRY

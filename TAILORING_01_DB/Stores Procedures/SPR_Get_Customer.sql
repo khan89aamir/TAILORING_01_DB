@@ -1,6 +1,6 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <10th OCT 2020>
+-- Create date: <25th DEC 2020>
 -- Update date: <12th OCT 2020>
 -- Description:	<Description,,>
 -- =============================================
@@ -16,7 +16,7 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 
-	SELECT CustomerID,Name,[Address],MobileNo,EmailID
+	SELECT CustomerID,Name,[Address],MobileNo,EmailID,CONVERT(INT,LastChange) LastChange
 	FROM dbo.CustomerMaster WITH(NOLOCK)
 
 	END TRY

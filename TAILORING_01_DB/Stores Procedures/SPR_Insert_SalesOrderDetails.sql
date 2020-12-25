@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <15th Nov 2020>
--- Update date: <21st Nov 2020>
+-- Update date: <25st DEC 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0,0
@@ -35,6 +35,9 @@ BEGIN
 	,FitTypeID
 	,GarmentID
 	,TrimAmount
+	,[Service]
+	,TrailDate
+	,DeliveryDate
 	,QTY
 	,Rate
 	,Total
@@ -45,6 +48,9 @@ BEGIN
 	,FitTypeID
 	,GarmentID
 	,TrimAmount
+	,[Service]
+	,Convert(Date,TrailDate)
+	,Convert(Date,DeliveryDate)
 	,QTY
 	,Rate
 	,Total
