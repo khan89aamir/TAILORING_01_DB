@@ -4,6 +4,7 @@
 	[Address] [nvarchar](max) NULL,
 	[MobileNo] [varchar](20) NULL,
 	[EmailID] [varchar](50) NULL,
+	GST [varchar](50) NULL,
 	[IsDefault] BIT NULL DEFAULT 0, 
 	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL DEFAULT 0,

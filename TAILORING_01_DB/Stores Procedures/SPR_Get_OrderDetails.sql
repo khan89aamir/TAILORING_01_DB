@@ -21,7 +21,8 @@ BEGIN
 
 	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,st.StichTypeName
 	,ft.FitTypeName,sd.TrimAmount,sd.QTY,sd.Rate,
-	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service],sd.TrailDate,sd.DeliveryDate
+	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service],sd.TrailDate,sd.DeliveryDate,
+	(sd.QTY*sd.Rate) as Total
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
