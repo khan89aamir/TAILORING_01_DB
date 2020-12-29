@@ -3,6 +3,7 @@
 	[SalesOrderID] [int] NOT NULL,
 	[GarmentID] [int] NOT NULL,
 	[StyleID] [int] NOT NULL,
+	[QTY] [int] NOT NULL DEFAULT 1,
 	[StyleImageID] [int] NOT NULL,
 	[LastChange] [timestamp] NULL,
 	[CreatedBy] [int] NOT NULL DEFAULT 0,

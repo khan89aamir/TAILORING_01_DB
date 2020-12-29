@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <15th Nov 2020>
--- Update date: <25st DEC 2020>
+-- Update date: <29th DEC 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0,0
@@ -80,6 +80,7 @@ BEGIN
 	SalesOrderID
 	,GarmentID
 	,StyleID
+	,QTY
 	,StyleImageID
 	,CreatedBy
 	)
@@ -87,6 +88,7 @@ BEGIN
 	SELECT 	SalesOrderID
 	,GarmentID
 	,StyleID
+	,QTY
 	,StyleImageID
 	,CreatedBy
 	FROM  @dtStyle
