@@ -1,12 +1,12 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <24th DEC 2020>
+-- Create date: <02nd JAN 2021>
 -- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Product_Rate] 2
-CREATE PROCEDURE [dbo].[SPR_Get_Product_Rate]
-@OrderType INT=0
+--EXEC [dbo].[SPR_Delete_GSTData] 0
+CREATE PROCEDURE [dbo].[SPR_Delete_GSTData]
+@GSTID INT=0
 
 AS
 BEGIN
@@ -16,21 +16,19 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=@OrderType
+	SET @PARAMERES=@GSTID
+	BEGIN TRANSACTION
 
-	SELECT pm.GarmentID,pm.GarmentCode,pm.GarmentName
-	,CONCAT(pm.GarmentCode,' ',pm.GarmentName) [GarmentCodeName]
-	,pm.GarmentType,prm.Rate
-	,(CASE prm.OrderType WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) OrderType
-	FROM tblProductMaster pm
-	INNER JOIN tblProductRateMaster prm ON pm.GarmentID=prm.GarmentID
-	WHERE prm.OrderType=IIF(@OrderType=2,prm.OrderType,@OrderType)
-	ORDER BY prm.OrderType
+	DELETE FROM tblGSTMaster WHERE GSTID=@GSTID
+
+	COMMIT
 
 	END TRY
 
 	BEGIN CATCH
 	
+	ROLLBACK
+
 	INSERT [dbo].[ERROR_Log]
 	(
 	ERR_NUMBER

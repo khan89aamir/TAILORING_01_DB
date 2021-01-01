@@ -20,7 +20,7 @@ BEGIN
 	SET @PARAMERES=CONCAT(@CustomerID,',',@FromDate,',',@ToDate)
 
 
-	SELECT cm.CustomerID,cm.Name,so.SalesOrderID,so.OrderNo,so.OrderDate,so.TrailDate,so.OrderQTY,so.TotalAmount,so.AdvanceAmount
+	SELECT cm.CustomerID,cm.Name,so.SalesOrderID,so.OrderNo,so.OrderDate,so.TrailDate,so.OrderQTY,so.TotalAmount
 	,so.OrderAmount [To be Paid],so.OrderMode,ed.Name [CreatedBy]
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
