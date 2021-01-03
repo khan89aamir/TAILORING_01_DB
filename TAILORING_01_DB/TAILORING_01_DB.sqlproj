@@ -173,6 +173,8 @@
     <Build Include="Stores Procedures\SPR_Get_Product_Rate.sql" />
     <Build Include="Stores Procedures\SPR_Get_MeasurementValue_Report.sql" />
     <Build Include="Stores Procedures\SPR_Get_Company.sql" />
+    <Build Include="Stores Procedures\SPR_Get_GarmentMeasurementStyle.sql" />
+    <Build Include="Tables\tblGSTMaster_1.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />

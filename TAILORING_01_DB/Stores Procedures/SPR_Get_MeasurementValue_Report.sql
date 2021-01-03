@@ -1,14 +1,14 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <29th DEC 2020>
--- Update date: <>
+-- Update date: <03rd JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
--- EXEC SPR_Get_MeasurementValue_Report 2,1
-CREATE PROCEDURE SPR_Get_MeasurementValue_Report
+-- EXEC SPR_Get_MeasurementValue_Report 2,1,0
+CREATE PROCEDURE [dbo].[SPR_Get_MeasurementValue_Report]
 @SalesOrderID INT=0
 ,@GarmentID INT=0
-
+,@Show INT=0
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -25,14 +25,16 @@ BEGIN
 	DECLARE @MeasurementName  AS NVARCHAR(MAX)
 	DECLARE @MeasurementValue  AS NVARCHAR(MAX)
 
-	SET @PARAMERES=CONCAT(@SalesOrderID,',',@GarmentID)
+	SET @PARAMERES=CONCAT(@SalesOrderID,',',@GarmentID,',',@Show)
 
 	DECLARE cursor_Measurement CURSOR
-	FOR  
-	SELECT  mm.MeasurementID,mm.MeasurementName,cm.MeasurementValue
+	FOR
+
+	 SELECT  mm.MeasurementID,mm.MeasurementName,cm.MeasurementValue
 	 FROM [dbo].tblCustomerMeasurement cm
 	 INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
-	 WHERE cm.SalesOrderID=@SalesOrderID AND cm.GarmentID=@GarmentID and cm.MeasurementValue<>0
+	 WHERE cm.SalesOrderID=@SalesOrderID AND cm.GarmentID=@GarmentID 
+	 AND cm.MeasurementValue<>@Show
 	 ORDER BY mm.MeasurementID
 
 	 OPEN cursor_Measurement;
@@ -98,4 +100,3 @@ SET @query2=@ColumnName+' UNION ALL SELECT '+@query1+'
 	
 	END CATCH
 END
-GO
