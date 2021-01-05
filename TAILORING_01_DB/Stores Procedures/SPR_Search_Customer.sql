@@ -1,14 +1,14 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <10th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Update date: <05th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Search_Customer]
+--EXEC [dbo].[SPR_Search_Customer] 0,0,1
 CREATE PROCEDURE [dbo].[SPR_Search_Customer]
 @Name NVARCHAR(MAX)='0'
 ,@MobileNo VARCHAR(MAX)='0'
-
+,@CustomerID INT=0
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -23,6 +23,7 @@ BEGIN
 	FROM dbo.CustomerMaster WITH(NOLOCK)
 	WHERE [Name] LIKE IIF(@Name='0',[Name],'%'+@Name+'%')
 	AND MobileNo LIKE IIF(@MobileNo='0',MobileNo,'%'+@MobileNo+'%')
+	AND CustomerID=IIF(@CustomerID=0,CustomerID,@CustomerID)
 
 	END TRY
 
