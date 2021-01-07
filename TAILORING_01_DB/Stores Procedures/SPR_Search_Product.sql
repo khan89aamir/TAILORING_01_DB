@@ -24,6 +24,7 @@ BEGIN
 
 	SELECT GarmentID,GarmentCode,GarmentName
 	,GarmentType,IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo
+	,CONVERT(INT,LastChange) LastChange
 	FROM dbo.tblProductMaster WITH(NOLOCK)
 	WHERE GarmentName LIKE IIF(@GarmentName='0',GarmentName,'%'+@GarmentName+'%')
 
