@@ -19,7 +19,7 @@ BEGIN
 	SET @PARAMERES=@SalesOrderID
 
 
-	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,st.StichTypeName
+	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,pm.GarmentCode, st.StichTypeName
 	,ft.FitTypeName,sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service],sd.TrailDate,sd.DeliveryDate,
 	(sd.QTY*sd.Rate) as Total
