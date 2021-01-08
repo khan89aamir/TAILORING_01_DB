@@ -1,10 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <09th DEC 2020>
--- Update date: <25th DEC 2020>
+-- Update date: <08th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_OrderDetails] 0
+--EXEC [dbo].[SPR_Get_OrderDetails] 1006
 CREATE PROCEDURE [dbo].[SPR_Get_OrderDetails]
 @SalesOrderID INT=0
 
@@ -21,7 +21,8 @@ BEGIN
 
 	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,pm.GarmentCode, st.StichTypeName
 	,ft.FitTypeName,sd.TrimAmount,sd.QTY,sd.Rate,
-	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service],sd.TrailDate,sd.DeliveryDate,
+	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
+	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
 	(sd.QTY*sd.Rate) as Total
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
@@ -38,7 +39,6 @@ BEGIN
 
 	BEGIN CATCH
 	
-	ROLLBACK
 
 	INSERT [dbo].[ERROR_Log]
 	(

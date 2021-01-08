@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <08th DEC 2020>
--- Update date: <>
+-- Update date: <08th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_OrderList] 0,NULL,NULL
@@ -20,7 +20,7 @@ BEGIN
 	SET @PARAMERES=CONCAT(@CustomerID,',',@FromDate,',',@ToDate)
 
 
-	SELECT cm.CustomerID,cm.Name,so.SalesOrderID,so.OrderNo,so.OrderDate,so.TrailDate,so.OrderQTY,so.TotalAmount
+	SELECT cm.CustomerID,cm.Name,so.SalesOrderID,so.OrderNo,so.OrderDate,so.OrderQTY,so.TotalAmount
 	,so.OrderAmount [To be Paid],so.OrderMode,ed.Name [CreatedBy]
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
