@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <10th OCT 2020>
--- Update date: <12th OCT 2020>
+-- Update date: <09th JAN 2020>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Insert_Customer] 0,0,0,0,0,0
@@ -11,6 +11,7 @@ CREATE PROCEDURE [dbo].[SPR_Insert_Customer]
 ,@MobileNo VarChar(MAX)=0
 ,@EmailID VarChar(MAX)=0
 ,@CreatedBy INT=0
+,@CustomerID INT=0 OUTPUT
 
 AS
 BEGIN
@@ -31,6 +32,8 @@ BEGIN
 	(
 		@Name,@Address,@MobileNo,@EmailID,@CreatedBy
 	)
+	
+	SELECT @CustomerID=SCOPE_IDENTITY()
 
 	COMMIT
 
