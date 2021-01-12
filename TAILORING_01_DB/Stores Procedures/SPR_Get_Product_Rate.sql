@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <24th DEC 2020>
--- Update date: <08th JAN 2021>
+-- Update date: <12th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Product_Rate] 2
@@ -23,7 +23,7 @@ BEGIN
 	SET @IMGPATH=(SELECT [ConfigValue]
 	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
 
-	SELECT pm.GarmentID,pm.GarmentCode,pm.GarmentName
+	SELECT prm.GarmentRateID,pm.GarmentID,pm.GarmentCode,pm.GarmentName
 	,CONCAT(pm.GarmentCode,' ',pm.GarmentName) [GarmentCodeName]
 	,pm.GarmentType,prm.Rate
 	,(CASE prm.OrderType WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) OrderType
