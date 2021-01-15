@@ -1,11 +1,16 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <12th OCT 2020>
--- Update date: <14th JAN 2021>
+-- Create date: <08th JAN 2021>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Product]
-CREATE PROCEDURE [dbo].[SPR_Get_Product]
+--EXEC [dbo].[SPR_Update_Product_Rate] 0,0,0,0,0,0
+CREATE PROCEDURE [dbo].[SPR_Update_Product_Rate]
+@GarmentRateID INT=0
+,@GarmentID INT=0
+,@Rate DECIMAL(18,2)=0
+,@OrderType INT=0
+,@UpdatedBy INT=0
 
 AS
 BEGIN
@@ -15,20 +20,21 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	DECLARE @IMGPATH VARCHAR(MAX)=''
+	SET @PARAMERES=CONCAT(@GarmentRateID,',',@GarmentID,',',@Rate,',',@OrderType,',',@UpdatedBy)
+	BEGIN TRANSACTION
 
-	SET @IMGPATH=(SELECT [ConfigValue]
-	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
-
-	SELECT GarmentID,GarmentCode,GarmentName
-	,GarmentType, IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo
-	,CONVERT(INT,LastChange) LastChange,Photo as Photo1
-	FROM dbo.tblProductMaster WITH(NOLOCK)
+	UPDATE [dbo].[tblProductRateMaster] SET GarmentID=@GarmentID
+	,Rate=@Rate,OrderType=@OrderType,UpdatedBy=@UpdatedBy
+	WHERE GarmentRateID=@GarmentRateID
+	
+	COMMIT
 
 	END TRY
 
 	BEGIN CATCH
 	
+	ROLLBACK
+
 	INSERT [dbo].[ERROR_Log]
 	(
 	ERR_NUMBER

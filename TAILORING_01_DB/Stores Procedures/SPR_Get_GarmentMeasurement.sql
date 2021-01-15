@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <21st OCT 2020>
--- Update date: <03th JAN 2021>
+-- Update date: <14th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_GarmentMeasurement] 1
@@ -26,7 +26,7 @@ BEGIN
 	INNER JOIN [tblMeasurementMaster] mm ON mp.MeasurementID=mm.MeasurementID
 	INNER JOIN [tblProductMaster] pm ON mp.GarmentID=pm.GarmentID
 	WHERE mp.GarmentID=@GarmentID
-	ORDER BY mp.IsMandatory
+	ORDER BY mp.MeasurementID
 
 	END TRY
 

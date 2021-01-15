@@ -26,7 +26,8 @@ BEGIN
 	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
 	LEFT JOIN dbo.EmployeeDetails ed ON so.CreatedBy=ed.EmpID
 	WHERE cm.CustomerID=IIF(@CustomerID=0,cm.CustomerID,@CustomerID)
-	AND so.OrderDate BETWEEN ISNULL(@FromDate,so.OrderDate) AND ISNULL(@ToDate,so.OrderDate)
+	AND so.OrderDate BETWEEN ISNULL(@FromDate,so.OrderDate) 
+	AND ISNULL(@ToDate,so.OrderDate)
 
 
 	END TRY

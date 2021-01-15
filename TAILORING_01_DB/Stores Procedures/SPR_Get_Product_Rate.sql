@@ -1,12 +1,13 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <24th DEC 2020>
--- Update date: <08th JAN 2021>
+-- Update date: <13th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Product_Rate] 2
+--EXEC [dbo].[SPR_Get_Product_Rate] 0,2
 CREATE PROCEDURE [dbo].[SPR_Get_Product_Rate]
-@OrderType INT=0
+@GarmentID INT=0
+,@OrderType INT=0
 
 AS
 BEGIN
@@ -23,15 +24,17 @@ BEGIN
 	SET @IMGPATH=(SELECT [ConfigValue]
 	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
 
-	SELECT pm.GarmentID,pm.GarmentCode,pm.GarmentName
+	SELECT prm.GarmentRateID,pm.GarmentID,pm.GarmentCode,pm.GarmentName
 	,CONCAT(pm.GarmentCode,' ',pm.GarmentName) [GarmentCodeName]
-	,pm.GarmentType,prm.Rate
+	,pm.GarmentType,ISNULL(prm.Rate,0) Rate
 	,(CASE prm.OrderType WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) OrderType
 	,IIF(pm.Photo IS NULL,pm.Photo,CONCAT(@IMGPATH,pm.Photo)) Photo
 	,Convert(INT,prm.LastChange) LastChange
 	FROM tblProductMaster pm
 	INNER JOIN tblProductRateMaster prm ON pm.GarmentID=prm.GarmentID
-	WHERE prm.OrderType=IIF(@OrderType=2,prm.OrderType,@OrderType)
+	WHERE pm.GarmentID=IIF(@GarmentID=0,pm.GarmentID,@GarmentID)
+	AND prm.OrderType=IIF(@OrderType=2,prm.OrderType,@OrderType)
+	--AND prm.OrderType=@OrderType
 	ORDER BY pm.GarmentID
 
 	END TRY
