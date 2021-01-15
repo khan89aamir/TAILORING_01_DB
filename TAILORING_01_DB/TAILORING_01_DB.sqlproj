@@ -178,6 +178,7 @@
     <Build Include="Views\vw_Garment_Measurment_rdlc.sql" />
     <Build Include="Views\vw_GarmentStyle_rdlc.sql" />
     <Build Include="Stores Procedures\SPR_Get_GSTData.sql" />
+    <Build Include="Stores Procedures\SPR_Insert_GSTData.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
