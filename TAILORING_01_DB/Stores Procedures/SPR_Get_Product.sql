@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <14th JAN 2021>
+-- Update date: <16th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Product]
@@ -22,7 +22,7 @@ BEGIN
 
 	SELECT GarmentID,GarmentCode,GarmentName
 	,GarmentType, IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo
-	,CONVERT(INT,LastChange) LastChange,Photo as Photo1
+	,CONVERT(INT,LastChange) LastChange
 	FROM dbo.tblProductMaster WITH(NOLOCK)
 
 	END TRY

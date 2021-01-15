@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <08th DEC 2020>
--- Update date: <08th JAN 2021>
+-- Update date: <16th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_OrderList] 0,NULL,NULL
@@ -26,9 +26,8 @@ BEGIN
 	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
 	LEFT JOIN dbo.EmployeeDetails ed ON so.CreatedBy=ed.EmpID
 	WHERE cm.CustomerID=IIF(@CustomerID=0,cm.CustomerID,@CustomerID)
-	AND so.OrderDate BETWEEN ISNULL(@FromDate,so.OrderDate) 
-	AND ISNULL(@ToDate,so.OrderDate)
-
+	AND so.OrderDate BETWEEN ISNULL(@FromDate,so.OrderDate) AND ISNULL(@ToDate,so.OrderDate)
+	ORDER BY so.SalesOrderID DESC,so.OrderDate DESC
 
 	END TRY
 
