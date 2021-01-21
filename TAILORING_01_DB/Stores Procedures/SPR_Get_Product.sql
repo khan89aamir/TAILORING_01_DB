@@ -1,12 +1,12 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <16th JAN 2021>
+-- Update date: <22th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Product]
+--EXEC [dbo].[SPR_Get_Product] 1
 CREATE PROCEDURE [dbo].[SPR_Get_Product]
-
+@GarmentID INT=0
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -15,6 +15,8 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
+	SET @PARAMERES=@GarmentID
+
 	DECLARE @IMGPATH VARCHAR(MAX)=''
 
 	SET @IMGPATH=(SELECT [ConfigValue]
@@ -24,6 +26,7 @@ BEGIN
 	,GarmentType, IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo
 	,CONVERT(INT,LastChange) LastChange
 	FROM dbo.tblProductMaster WITH(NOLOCK)
+	WHERE GarmentID=IIF(@GarmentID=0,GarmentID,@GarmentID)
 
 	END TRY
 
