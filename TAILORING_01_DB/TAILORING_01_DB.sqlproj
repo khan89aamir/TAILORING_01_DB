@@ -182,6 +182,12 @@
     <Build Include="Stores Procedures\SPR_Update_Product_Rate.sql" />
     <Build Include="Stores Procedures\SPR_Delete_Product_Rate.sql" />
     <Build Include="Views\vw_GarmentMeasurementMapping.sql" />
+    <Build Include="Stores Procedures\SPR_Delete_GSTData.sql" />
+    <Build Include="Stores Procedures\SPR_Insert_GSTData.sql" />
+    <Build Include="Stores Procedures\SPR_Update_GSTData.sql" />
+    <Build Include="Tables\tblCommonMeasurement.sql" />
+    <Build Include="Tables\tblMasterGarmentMapping.sql" />
+    <Build Include="Stores Procedures\SPR_Get_CommonMeasurement.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
