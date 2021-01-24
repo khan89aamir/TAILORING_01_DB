@@ -8,6 +8,10 @@ Post-Deployment Script Template
  Example:      :setvar TableName MyTable							
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
+DECLARE @IMGPATH VARCHAR(MAX)=''
+SET @IMGPATH=(SELECT [ConfigValue] FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='ImagePath')
+ SELECT *,CONCAT(@IMGPATH,ImageName),dbo.fc_FileExists(CONCAT(@IMGPATH,ImageName)) [IsExist] FROM vw_GarmentStyleImgMapping 
+ ORDER BY dbo.fc_FileExists(CONCAT(@IMGPATH,ImageName))
 */
 TRUNCATE TABLE [dbo].[tblTailoringConfig]
 
