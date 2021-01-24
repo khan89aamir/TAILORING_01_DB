@@ -191,6 +191,7 @@
     <Build Include="Tables\tblOrderStatusMaster.sql" />
     <Build Include="Tables\tblOrderStatus.sql" />
     <Build Include="Functions\fc_FileExists.sql" />
+    <Build Include="Views\vw_GetOrderStatusDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />

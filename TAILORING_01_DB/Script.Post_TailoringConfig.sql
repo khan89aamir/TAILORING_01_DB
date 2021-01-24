@@ -76,3 +76,18 @@ VALUES(4,'Leg Shape','Bottom')
 GO
 
 SET IDENTITY_INSERT [dbo].[tblBodyPostureMaster] OFF
+
+
+
+SET IDENTITY_INSERT [dbo].[tblOrderStatusMaster] ON 
+
+GO
+INSERT [dbo].[tblOrderStatusMaster] ([Id], [OrderStatus]) VALUES (1, N'Delivered')
+GO
+INSERT [dbo].[tblOrderStatusMaster] ([Id], [OrderStatus]) VALUES (2, N'Critical')
+GO
+INSERT [dbo].[tblOrderStatusMaster] ([Id], [OrderStatus]) VALUES (3, N'In Process')
+GO
+INSERT [dbo].[tblOrderStatusMaster] ([Id], [OrderStatus]) VALUES (4, N'Received')
+GO
+SET IDENTITY_INSERT [dbo].[tblOrderStatusMaster] OFF
