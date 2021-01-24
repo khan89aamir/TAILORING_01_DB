@@ -14,4 +14,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="OrderStatus" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d2ade593-0c47-44a7-abff-4b48d2bb2ae3" ChangeDateTime="01/24/2021 19:57:57">
+    <Property Name="ElementName" Value="[dbo].[tblOrderStatus].[ReceiveDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblOrderStatus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReceivedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5597d33e-ca01-4b07-aafb-8b5f3541dc47" ChangeDateTime="01/24/2021 19:57:59">
+    <Property Name="ElementName" Value="[dbo].[tblOrderStatus].[ReceiveBy]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tblOrderStatus]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReceivedBy" />
+  </Operation>
 </Operations>

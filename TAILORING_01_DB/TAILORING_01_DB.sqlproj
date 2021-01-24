@@ -190,6 +190,7 @@
     <Build Include="Stores Procedures\SPR_Get_CommonMeasurement.sql" />
     <Build Include="Tables\tblOrderStatusMaster.sql" />
     <Build Include="Tables\tblOrderStatus.sql" />
+    <Build Include="Views\vw_GetOrderStatusDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
