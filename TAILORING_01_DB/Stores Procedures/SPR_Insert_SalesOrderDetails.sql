@@ -118,7 +118,11 @@ BEGIN
 	,SalesOrderDetailsID
 	,OrderStatus
 	)
-	SELECT 1,1,1
+	SELECT SalesOrderID
+	,SalesOrderDetailsID
+	,3
+	FROM tblSalesOrderDetails WITH(NOLOCK) 
+	WHERE SalesOrderID=@SalesOrderID
 
 	COMMIT
 

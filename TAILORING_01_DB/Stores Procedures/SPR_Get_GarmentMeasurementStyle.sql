@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <>
+-- Update date: <25th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_GarmentMeasurementStyle 1002
@@ -22,7 +22,7 @@ BEGIN
 
 	--Garment Details
 	SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
-	,ft.FitTypeID,sd.QTY,CONCAT(@ImagePath,pm.Photo) Photo
+	,ft.FitTypeID,SUM(sd.QTY) QTY,CONCAT(@ImagePath,pm.Photo) Photo
 	--sd.TrailDate,sd.DeliveryDate
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
@@ -31,6 +31,8 @@ BEGIN
 	INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
 	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
 	WHERE so.SalesOrderID=@OrderID
+	GROUP BY pm.GarmentID,pm.GarmentName,st.StichTypeID
+	,ft.FitTypeID,Photo
 
 	--Style Name AND Image
 	SELECT  cs.CustStyleID,cs.GarmentID,cs.StyleID,cs.QTY,cs.StyleImageID
