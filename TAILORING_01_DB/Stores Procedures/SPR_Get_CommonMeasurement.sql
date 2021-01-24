@@ -1,11 +1,12 @@
 ﻿ -- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <22th JAN 2021>
--- Update date: <>
+-- Update date: <24th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].SPR_Get_CommonMeasurement
+--EXEC [dbo].SPR_Get_CommonMeasurement 1
 CREATE PROCEDURE [dbo].[SPR_Get_CommonMeasurement]
+@GarmentID INT=0
 
 AS
 BEGIN
@@ -15,17 +16,18 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
+	SET @PARAMERES=@GarmentID
 
 	SELECT cmt.GarmentID,cmt.MeasurementID
     FROM tblCommonMeasurement cmt
     INNER JOIN
     (
     select MeasurementID
-    FROM tblCommonMeasurement
-    GROUP BY MeasurementID
+    FROM [dbo].[tblCommonMeasurement]
+    GROUP BY [MeasurementID]
     HAVING COUNT(MeasurementID)>1
     )t ON cmt.MeasurementID=t.MeasurementID
-
+	WHERE cmt.GarmentID=@GarmentID
 	END TRY
 
 	BEGIN CATCH
