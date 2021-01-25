@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [dbo].[vw_GetOrderStatusDetails]
 as
-SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,pm.GarmentCode, st.StichTypeName
+SELECT so.SalesOrderID,sd.SalesOrderDetailsID,sd.SubOrderNo,pm.GarmentName,pm.GarmentID,pm.GarmentCode, st.StichTypeName
 	,ft.FitTypeName,sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
