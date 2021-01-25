@@ -192,6 +192,7 @@
     <Build Include="Tables\tblOrderStatus.sql" />
     <Build Include="Functions\fc_FileExists.sql" />
     <Build Include="Views\vw_GetOrderStatusDetails.sql" />
+    <Build Include="Stores Procedures\SPR_Update_SalesOrderDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />

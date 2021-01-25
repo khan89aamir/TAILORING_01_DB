@@ -78,6 +78,7 @@ GO
 SET IDENTITY_INSERT [dbo].[tblBodyPostureMaster] OFF
 
 
+TRUNCATE TABLE [dbo].[tblOrderStatusMaster]
 
 SET IDENTITY_INSERT [dbo].[tblOrderStatusMaster] ON 
 
