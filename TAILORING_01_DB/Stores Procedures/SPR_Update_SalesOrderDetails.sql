@@ -1,23 +1,16 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <15th Nov 2020>
--- Update date: <25th JAN 2021>
+-- Create date: <25th JAN 2021>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0,0
-CREATE PROCEDURE [dbo].[SPR_Insert_SalesOrderDetails]
---@SalesOrderID	INT=0
---,@GarmentID		INT=0
---,@TrimAmount	DECIMAL(18,2)=0	
---,@QTY			INT=0
---,@Rate			DECIMAL(18,2)=0
---,@Total			DECIMAL(18,2)=0
---,@CreatedBy		INT=0
-@dtSalesOrderDetails dbo.tblSalesOrderDetailsType READONLY
-,@dtMeasurement dbo.tblCustomerMeasurementType READONLY
+--EXEC SPR_Update_SalesOrderDetails 0,0,0,0
+CREATE PROCEDURE [dbo].[SPR_Update_SalesOrderDetails]
+@dtMeasurement dbo.tblCustomerMeasurementType READONLY
 ,@dtStyle dbo.tblCustomerStyleType READONLY
 ,@dtBodyPosture dbo.tblCustomerBodyPostureType READONLY
 ,@SalesOrderID	INT=0
+
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -29,36 +22,7 @@ BEGIN
 	SET @PARAMERES=@SalesOrderID
 	BEGIN TRANSACTION
 
-	INSERT tblSalesOrderDetails
-	(
-	SalesOrderID
-	,StichTypeID
-	,FitTypeID
-	,GarmentID
-	,TrimAmount
-	,[Service]
-	,TrailDate
-	,DeliveryDate
-	,QTY
-	,Rate
-	,Total
-	,CreatedBy
-	)
-	SELECT SalesOrderID
-	,StichTypeID
-	,FitTypeID
-	,GarmentID
-	,TrimAmount
-	,[Service]
-	,Convert(Date,TrailDate)
-	,Convert(Date,DeliveryDate)
-	,QTY
-	,Rate
-	,Total
-	,CreatedBy
-	FROM @dtSalesOrderDetails
-	--VALUES(@SalesOrderID,@GarmentID,@TrimAmount,@QTY,@Rate,@Total,@CreatedBy)
-
+	DELETE FROM tblCustomerMeasurement WHERE SalesOrderID=@SalesOrderID
 	INSERT tblCustomerMeasurement
 	(
 	SalesOrderID
@@ -76,6 +40,7 @@ BEGIN
 	FROM @dtMeasurement
 
 
+	DELETE FROM tblCustomerStyle WHERE SalesOrderID=@SalesOrderID
 	INSERT tblCustomerStyle
 	(
 	SalesOrderID
@@ -95,6 +60,7 @@ BEGIN
 	FROM  @dtStyle
 
 
+	DELETE FROM tblCustomerBodyPosture WHERE SalesOrderID=@SalesOrderID
 	INSERT tblCustomerBodyPosture
 	(
 	SalesOrderID
@@ -111,18 +77,6 @@ BEGIN
 	,CreatedBy
 	FROM  @dtBodyPosture
 	
-
-	INSERT tblOrderStatus
-	(
-	SalesOrderID
-	,SalesOrderDetailsID
-	,OrderStatus
-	)
-	SELECT SalesOrderID
-	,SalesOrderDetailsID
-	,3
-	FROM tblSalesOrderDetails WITH(NOLOCK) 
-	WHERE SalesOrderID=@SalesOrderID
 
 	COMMIT
 
