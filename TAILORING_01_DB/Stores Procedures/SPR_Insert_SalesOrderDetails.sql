@@ -4,20 +4,14 @@
 -- Update date: <25th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0,0
+--EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0
 CREATE PROCEDURE [dbo].[SPR_Insert_SalesOrderDetails]
---@SalesOrderID	INT=0
---,@GarmentID		INT=0
---,@TrimAmount	DECIMAL(18,2)=0	
---,@QTY			INT=0
---,@Rate			DECIMAL(18,2)=0
---,@Total			DECIMAL(18,2)=0
---,@CreatedBy		INT=0
 @dtSalesOrderDetails dbo.tblSalesOrderDetailsType READONLY
 ,@dtMeasurement dbo.tblCustomerMeasurementType READONLY
 ,@dtStyle dbo.tblCustomerStyleType READONLY
 ,@dtBodyPosture dbo.tblCustomerBodyPostureType READONLY
 ,@SalesOrderID	INT=0
+
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -57,7 +51,7 @@ BEGIN
 	,Total
 	,CreatedBy
 	FROM @dtSalesOrderDetails
-	--VALUES(@SalesOrderID,@GarmentID,@TrimAmount,@QTY,@Rate,@Total,@CreatedBy)
+
 
 	INSERT tblCustomerMeasurement
 	(
