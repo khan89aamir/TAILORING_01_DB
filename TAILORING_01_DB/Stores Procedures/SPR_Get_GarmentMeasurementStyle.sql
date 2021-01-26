@@ -1,10 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <25th JAN 2021>
+-- Update date: <27th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Get_GarmentMeasurementStyle 1002
+--EXEC SPR_Get_GarmentMeasurementStyle 1016
 CREATE PROCEDURE [dbo].[SPR_Get_GarmentMeasurementStyle]
 @OrderID INT=0
 
@@ -33,6 +33,14 @@ BEGIN
 	WHERE so.SalesOrderID=@OrderID
 	GROUP BY pm.GarmentID,pm.GarmentName,st.StichTypeID
 	,ft.FitTypeID,Photo
+
+	--Measurement details
+	SELECT  cm.GarmentID,cm.MeasurementID
+	,IIF(CONVERT(VARCHAR,cm.MeasurementValue)='0.00','',CONVERT(VARCHAR,cm.MeasurementValue)) MeasurementValue
+	FROM [dbo].tblCustomerMeasurement cm
+	INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
+	WHERE cm.SalesOrderID=1017--@OrderID
+	ORDER BY cm.GarmentID,cm.MeasurementID
 
 	--Style Name AND Image
 	SELECT  cs.CustStyleID,cs.GarmentID,cs.StyleID,cs.QTY,cs.StyleImageID

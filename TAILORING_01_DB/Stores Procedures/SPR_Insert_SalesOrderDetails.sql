@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <15th Nov 2020>
--- Update date: <25th JAN 2021>
+-- Update date: <27th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0
@@ -11,7 +11,7 @@ CREATE PROCEDURE [dbo].[SPR_Insert_SalesOrderDetails]
 ,@dtStyle dbo.tblCustomerStyleType READONLY
 ,@dtBodyPosture dbo.tblCustomerBodyPostureType READONLY
 ,@SalesOrderID	INT=0
-
+,@Flag INT=0 OUTPUT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -118,12 +118,13 @@ BEGIN
 	FROM tblSalesOrderDetails WITH(NOLOCK) 
 	WHERE SalesOrderID=@SalesOrderID
 
+	SET @Flag=1
 	COMMIT
 
 	END TRY
 
 	BEGIN CATCH
-	
+	SET @Flag=0
 	ROLLBACK
 
 	INSERT [dbo].[ERROR_Log]
