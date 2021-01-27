@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <22nd OCT 2020>
--- Update date: <06th November 2020>
+-- Update date: <27th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_GarmentStyle_Images] 1,11
@@ -31,6 +31,7 @@ BEGIN
 	INNER JOIN [tblProductMaster] pm ON sp.GarmentID=pm.GarmentID
 	INNER JOIN tblStyleImageMaster sim ON sp.StyleID=sim.StyleID AND sp.GarmentID=sim.GarmentID
 	WHERE sp.GarmentID=@GarmentID AND sp.StyleID=@StyleID
+	ORDER BY sim.ImageName
 
 	END TRY
 

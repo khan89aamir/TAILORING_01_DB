@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <25th JAN 2021>
--- Update date: <26th JAN 2021>
+-- Update date: <27th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Update_SalesOrderDetails 0,0,0,0
@@ -11,6 +11,7 @@ CREATE PROCEDURE [dbo].[SPR_Update_SalesOrderDetails]
 ,@dtStyle dbo.tblCustomerStyleType READONLY
 ,@dtBodyPosture dbo.tblCustomerBodyPostureType READONLY
 ,@SalesOrderID	INT=0
+,@Flag INT=0 OUTPUT
 
 AS
 BEGIN
@@ -84,13 +85,13 @@ BEGIN
 	,CreatedBy
 	FROM  @dtBodyPosture
 	
-
+	SET @Flag=1
 	COMMIT
 
 	END TRY
 
 	BEGIN CATCH
-	
+	SET @Flag=0
 	ROLLBACK
 
 	INSERT [dbo].[ERROR_Log]

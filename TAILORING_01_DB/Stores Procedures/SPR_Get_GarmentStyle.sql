@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <22nd OCT 2020>
--- Update date: <14th JAN 2021>
+-- Update date: <27th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_GarmentStyle] 1
@@ -23,7 +23,7 @@ BEGIN
 	INNER JOIN [tblStyleMaster] sm ON sp.StyleID=sm.StyleID
 	INNER JOIN [tblProductMaster] pm ON sp.GarmentID=pm.GarmentID
 	WHERE sp.GarmentID=@GarmentID
-	ORDER BY sm.StyleID
+	ORDER BY sm.StyleName
 
 	END TRY
 
