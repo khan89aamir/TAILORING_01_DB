@@ -4,7 +4,7 @@
 -- Update date: <27th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Get_GarmentMeasurementStyle 1016
+--EXEC SPR_Get_GarmentMeasurementStyle 1017
 CREATE PROCEDURE [dbo].[SPR_Get_GarmentMeasurementStyle]
 @OrderID INT=0
 
@@ -39,7 +39,7 @@ BEGIN
 	,IIF(CONVERT(VARCHAR,cm.MeasurementValue)='0.00','',CONVERT(VARCHAR,cm.MeasurementValue)) MeasurementValue
 	FROM [dbo].tblCustomerMeasurement cm
 	INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
-	WHERE cm.SalesOrderID=1017--@OrderID
+	WHERE cm.SalesOrderID=@OrderID
 	ORDER BY cm.GarmentID,cm.MeasurementID
 
 	--Style Name AND Image
