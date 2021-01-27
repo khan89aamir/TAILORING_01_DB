@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR>
 -- Create date: <06th NOV 2020>
--- Update date: <>
+-- Update date: <27th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_BodyPosture_ByGarmentID 1
@@ -34,6 +34,7 @@ BEGIN
 	FROM tblBodyPostureMaster bm
 	INNER JOIN tblBodyPostureMapping bma ON bm.BodyPostureID=bma.BodyPostureID
 	WHERE bm.GarmentType=@GarmentType
+	ORDER BY bma.BodyPostureName
 
 	END TRY
 
