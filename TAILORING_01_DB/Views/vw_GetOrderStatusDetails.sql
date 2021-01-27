@@ -12,7 +12,7 @@ SELECT so.SalesOrderID,sd.SalesOrderDetailsID,sd.SubOrderNo,pm.GarmentName,pm.Ga
 		   when os.OrderStatus=2 then 'Critical'
 		  
 		  end)
-	as OrderStatus
+	as OrderStatus, os.OrderStatus as OrderStatusID
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
