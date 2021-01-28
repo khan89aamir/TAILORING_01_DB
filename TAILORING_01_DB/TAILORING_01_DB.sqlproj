@@ -196,6 +196,7 @@
     <Build Include="Stores Procedures\SPR_Get_GarmentMeasurementStyle_CopyOrder.sql" />
     <Build Include="Views\vw_Chalan_Rdlc.sql" />
     <Build Include="Tables\tblBarCodeSettings.sql" />
+    <Build Include="Stores Procedures\SPR_GetDashboardData.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
