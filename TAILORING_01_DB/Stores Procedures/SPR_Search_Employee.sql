@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th OCT 2020>
--- Update date: <13th OCT 2020>
+-- Update date: <28th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Search_Employee]
@@ -22,6 +22,7 @@ BEGIN
 	SELECT EmpID,EmployeeCode,Name,MobileNo,(CASE Gender WHEN 1 THEN 'Male' WHEN 0 THEN 'Female' END) Gender
 	,DOB,[Address],(CASE EmployeeType WHEN 0 THEN 'Admin' WHEN 1 THEN 'Master' END) EmployeeType
 	,Photo,(CASE ActiveStatus WHEN 1 THEN 'Active' WHEN 0 THEN 'InActive' END) ActiveStatus
+	,CONVERT(INT,LastChange) LastChange
 	FROM dbo.EmployeeDetails WITH(NOLOCK)
 	WHERE EmpID=IIF(@EmpID=0,EmpID,@EmpID)
 	AND Name LIKE IIF(@Name='0',Name,'%'+@Name+'%')

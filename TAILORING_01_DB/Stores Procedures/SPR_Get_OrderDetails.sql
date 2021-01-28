@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <09th DEC 2020>
--- Update date: <08th JAN 2021>
+-- Update date: <29th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_OrderDetails] 1006
@@ -19,8 +19,8 @@ BEGIN
 	SET @PARAMERES=@SalesOrderID
 
 
-	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,pm.GarmentCode, st.StichTypeName
-	,ft.FitTypeName,sd.TrimAmount,sd.QTY,sd.Rate,
+	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,pm.GarmentCode
+	, st.StichTypeName [StichType],ft.FitTypeName [FitType],sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
 	(sd.QTY*sd.Rate) as Total

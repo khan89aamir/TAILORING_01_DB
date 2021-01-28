@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <10th OCT 2020>
--- Update date: <05th JAN 2021>
+-- Update date: <28th JAN 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Search_Customer] 0,0,1
@@ -20,6 +20,7 @@ BEGIN
 	SET @PARAMERES=CONCAT(@Name,',',@MobileNo)
 
 	SELECT CustomerID,[Name],[Address],MobileNo,EmailID
+	,CONVERT(INT,LastChange) LastChange
 	FROM dbo.CustomerMaster WITH(NOLOCK)
 	WHERE [Name] LIKE IIF(@Name='0',[Name],'%'+@Name+'%')
 	AND MobileNo LIKE IIF(@MobileNo='0',MobileNo,'%'+@MobileNo+'%')
