@@ -1,10 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <27th JAN 2021>
+-- Update date: <01st FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Get_GarmentMeasurementStyle 1017
+--EXEC SPR_Get_GarmentMeasurementStyle 1
 CREATE PROCEDURE [dbo].[SPR_Get_GarmentMeasurementStyle]
 @OrderID INT=0
 
@@ -32,7 +32,8 @@ BEGIN
 	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
 	WHERE so.SalesOrderID=@OrderID
 	GROUP BY pm.GarmentID,pm.GarmentName,st.StichTypeID
-	,ft.FitTypeID,Photo
+	,ft.FitTypeID,Photo,sd.SalesOrderDetailsID
+	ORDER BY sd.SalesOrderDetailsID
 
 	--Measurement details
 	SELECT  cm.GarmentID,cm.MeasurementID

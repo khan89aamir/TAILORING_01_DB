@@ -3,6 +3,7 @@
 	[StichTypeID] [int] NULL,
 	[FitTypeID] [int] NULL,
 	[GarmentID] [int] NULL,
+	[MasterGarmentID] [int] NULL,
 	[Service] [int] NULL,
 	[TrailDate] [date] NULL,
 	[DeliveryDate] [date] NULL,

@@ -1,11 +1,11 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <09th DEC 2020>
--- Update date: <29th JAN 2021>
+-- Create date: <31st JAN 2021>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_OrderDetails] 1006
-CREATE PROCEDURE [dbo].[SPR_Get_OrderDetails]
+--EXEC [dbo].SPR_Get_MasterOrderDetails 1
+CREATE PROCEDURE [dbo].SPR_Get_MasterOrderDetails
 @SalesOrderID INT=0
 
 AS
@@ -31,9 +31,24 @@ BEGIN
 	INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
 	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
 	LEFT JOIN dbo.EmployeeDetails ed ON so.CreatedBy=ed.EmpID
-	WHERE so.SalesOrderID=@SalesOrderID
-	--WHERE cm.CustomerID=IIF(@CustomerID=0,cm.CustomerID,@CustomerID)
-	--AND so.OrderDate BETWEEN ISNULL(@FromDate,so.OrderDate) AND ISNULL(@ToDate,so.OrderDate)
+	WHERE so.SalesOrderID=@SalesOrderID AND sd.GarmentID=sd.MasterGarmentID
+	
+	UNION
+
+	SELECT TOP 1 so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,pm.GarmentCode
+	, st.StichTypeName ,ft.FitTypeName ,sd.TrimAmount,sd.QTY,sd.Rate,
+	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
+	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
+	(sd.QTY*sd.Rate) as Total
+	FROM [dbo].[tblSalesOrder] so
+	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
+	INNER JOIN dbo.tblProductMaster pm ON sd.MasterGarmentID=pm.GarmentID
+	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
+	INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
+	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
+	LEFT JOIN dbo.EmployeeDetails ed ON so.CreatedBy=ed.EmpID
+	WHERE so.SalesOrderID=@SalesOrderID AND sd.GarmentID<>sd.MasterGarmentID
+
 
 	END TRY
 

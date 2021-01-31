@@ -23,7 +23,7 @@ BEGIN
 
 
 	SELECT cm.CustomerID,cm.Name,so.SalesOrderID,so.OrderNo,so.OrderDate,so.OrderQTY
-	,so.OrderAmount,so.CGST,so.SGST,so.TotalAmount,so.OrderMode,ed.[Name] [CreatedBy],cm.[Address],cm.MobileNo
+	,so.OrderAmount,so.CGST,so.SGST,so.TotalAmount,so.OrderMode,ed.Name [CreatedBy],cm.[Address],cm.MobileNo
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
 	LEFT JOIN dbo.EmployeeDetails ed ON so.CreatedBy=ed.EmpID

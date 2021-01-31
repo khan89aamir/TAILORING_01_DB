@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [dbo].[tblSalesOrderDetails](
 	[SalesOrderDetailsID] [int] IDENTITY(1,1) NOT NULL,
 	[SalesOrderID] [int] NOT NULL,
-	  [SubOrderNo] NVARCHAR(50) NULL,
+	[SubOrderNo] NVARCHAR(50) NULL,
+	[MasterGarmentID] [int] NULL,
 	[GarmentID] [int] NOT NULL,
 	[StichTypeID] [int] NOT NULL,
 	[FitTypeID] [int] NOT NULL,
