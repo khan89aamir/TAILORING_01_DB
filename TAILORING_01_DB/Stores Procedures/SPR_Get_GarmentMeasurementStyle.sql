@@ -4,7 +4,7 @@
 -- Update date: <01st FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Get_GarmentMeasurementStyle 1
+--EXEC SPR_Get_GarmentMeasurementStyle 6
 CREATE PROCEDURE [dbo].[SPR_Get_GarmentMeasurementStyle]
 @OrderID INT=0
 
@@ -23,6 +23,7 @@ BEGIN
 	--Garment Details
 	SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
 	,ft.FitTypeID,SUM(sd.QTY) QTY,CONCAT(@ImagePath,pm.Photo) Photo
+	,os.OrderStatus
 	--sd.TrailDate,sd.DeliveryDate
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
@@ -30,9 +31,10 @@ BEGIN
 	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
 	INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
 	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
+	INNER JOIN dbo.tblOrderStatus os ON sd.SalesOrderDetailsID=os.SalesOrderDetailsID AND os.SalesOrderID=@OrderID
 	WHERE so.SalesOrderID=@OrderID
 	GROUP BY pm.GarmentID,pm.GarmentName,st.StichTypeID
-	,ft.FitTypeID,Photo,sd.SalesOrderDetailsID
+	,ft.FitTypeID,Photo,sd.SalesOrderDetailsID,os.OrderStatus
 	ORDER BY sd.SalesOrderDetailsID
 
 	--Measurement details

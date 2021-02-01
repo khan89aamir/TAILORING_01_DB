@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <15th Nov 2020>
--- Update date: <27th JAN 2021>
+-- Update date: <01st FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0
@@ -28,6 +28,7 @@ BEGIN
 	SalesOrderID
 	,StichTypeID
 	,FitTypeID
+	,MasterGarmentID
 	,GarmentID
 	,TrimAmount
 	,[Service]
@@ -41,6 +42,7 @@ BEGIN
 	SELECT SalesOrderID
 	,StichTypeID
 	,FitTypeID
+	,MasterGarmentID
 	,GarmentID
 	,TrimAmount
 	,[Service]

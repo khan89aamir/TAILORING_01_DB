@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <25th JAN 2021>
--- Update date: <27th JAN 2021>
+-- Update date: <01st FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Update_SalesOrderDetails 0,0,0,0

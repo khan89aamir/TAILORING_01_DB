@@ -16,7 +16,7 @@
 	[CreatedBy] [int] NOT NULL DEFAULT 0,
 	[CreatedOn] [datetime] NOT NULL DEFAULT getdate(),
 	[UpdatedBy] [int] NULL,
-	[UpdatedOn] [datetime] NULL 
+	[UpdatedOn] [datetime] NULL, 
   
 ) ON [PRIMARY]
 

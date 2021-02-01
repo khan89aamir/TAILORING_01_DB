@@ -1,10 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <09th DEC 2020>
--- Update date: <29th JAN 2021>
+-- Update date: <01st FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_OrderDetails] 1006
+--EXEC [dbo].[SPR_Get_OrderDetails] 6
 CREATE PROCEDURE [dbo].[SPR_Get_OrderDetails]
 @SalesOrderID INT=0
 
@@ -23,7 +23,7 @@ BEGIN
 	, st.StichTypeName ,ft.FitTypeName ,sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
-	(sd.QTY*sd.Rate) as Total
+	ROUND( ((sd.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
