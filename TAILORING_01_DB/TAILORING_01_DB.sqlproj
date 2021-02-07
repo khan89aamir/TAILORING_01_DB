@@ -199,6 +199,7 @@
     <Build Include="Stores Procedures\SPR_GetDashboardData.sql" />
     <Build Include="Stores Procedures\SPR_Get_MasterOrderDetails.sql" />
     <Build Include="Stores Procedures\SPR_Search_Product_Rate.sql" />
+    <Build Include="Views\vw_OrderDetails_RDLC.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
