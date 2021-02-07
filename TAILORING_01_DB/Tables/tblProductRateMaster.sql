@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblProductRateMaster](
 	[GarmentRateID] [int] IDENTITY(1,1) NOT NULL,
 	[GarmentID] [int] NOT NULL,
+	[GarmentCode] [nvarchar](50) NULL,
 	[Rate] [decimal](18, 2) NOT NULL,
 	[OrderType] [int] NOT NULL CONSTRAINT [DF_tblProductRateMaster_OrderType]  DEFAULT ((0)),
 	[LastChange] [timestamp] NULL,

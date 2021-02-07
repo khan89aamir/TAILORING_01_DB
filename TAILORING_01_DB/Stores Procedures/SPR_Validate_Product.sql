@@ -1,13 +1,12 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <>
+-- Update date: <07th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Validate_Product 0,0,0
 CREATE PROCEDURE [dbo].[SPR_Validate_Product]
 @GarmentID INT=0
-,@GarmentCode NVARCHAR(MAX)=0
 ,@GarmentName NVARCHAR(MAX)=0
 
 AS
@@ -18,21 +17,13 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentCode,',',@GarmentName)
+	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentName)
 	
 	IF EXISTS(SELECT 1 FROM dbo.tblProductMaster WITH(NOLOCK) 
-	WHERE GarmentCode=@GarmentCode AND GarmentID<> IIF(@GarmentID=0,GarmentID,@GarmentID) )
-	BEGIN
-
-		SELECT 0 AS Flag,CONCAT('GarmentCode [',@GarmentCode,'] is already exist.') AS MSg
-	
-	END
-
-	ELSE IF EXISTS(SELECT 1 FROM dbo.tblProductMaster WITH(NOLOCK) 
 	WHERE GarmentName=@GarmentName AND GarmentID<>IIF(@GarmentID=0,GarmentID,@GarmentID) )
 	BEGIN
 
-		SELECT 2 AS Flag,CONCAT('GarmentName [',@GarmentName,'] is already exist.') AS MSg
+		SELECT 0 AS Flag,CONCAT('GarmentName [',@GarmentName,'] is already exist.') AS MSg
 	
 	END
 

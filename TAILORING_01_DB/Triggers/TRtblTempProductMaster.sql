@@ -26,15 +26,13 @@ BEGIN
 			BEGIN
 			INSERT INTO tblProductMaster
 			(
-				GarmentCode
-				,GarmentName
+				GarmentName
 				,GarmentType
 				,Photo
 				,CreatedBy
 			)
 			SELECT
-			 @GarmentCode
-			 ,@GarmentName
+			 @GarmentName
 			 ,@GarmentType
 			 ,@Photo
 			 ,0

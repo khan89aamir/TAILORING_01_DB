@@ -1,10 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <09th DEC 2020>
--- Update date: <01st FEB 2021>
+-- Update date: <07th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_OrderDetails] 6
+--EXEC [dbo].[SPR_Get_OrderDetails] 2
 CREATE PROCEDURE [dbo].[SPR_Get_OrderDetails]
 @SalesOrderID INT=0
 
@@ -19,7 +19,7 @@ BEGIN
 	SET @PARAMERES=@SalesOrderID
 
 
-	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,pm.GarmentCode
+	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,prm.GarmentCode
 	, st.StichTypeName ,ft.FitTypeName ,sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
@@ -27,6 +27,7 @@ BEGIN
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
+	INNER JOIN dbo.tblProductRateMaster prm ON pm.GarmentID=prm.GarmentID AND prm.OrderType=sd.[Service]
 	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
 	INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
 	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID

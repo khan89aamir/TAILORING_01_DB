@@ -1,12 +1,13 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <08th JAN 2021>
--- Update date: <>
+-- Update date: <07th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Insert_Product_Rate] 0,0,0,0,0,0
 CREATE PROCEDURE [dbo].[SPR_Insert_Product_Rate]
 @GarmentID INT=0
+,@GarmentCode NVARCHAR(MAX)=0
 ,@Rate DECIMAL(18,2)=0
 ,@OrderType INT=0
 ,@CreatedBy INT=0
@@ -19,16 +20,16 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	SET @PARAMERES=CONCAT(@GarmentID,',',@Rate,',',@OrderType,',',@CreatedBy)
+	SET @PARAMERES=CONCAT(@GarmentID,',',@GarmentCode,',',@Rate,',',@OrderType,',',@CreatedBy)
 	BEGIN TRANSACTION
 
 	INSERT [dbo].[tblProductRateMaster]
 	(
-		GarmentID,Rate,OrderType,CreatedBy
+		GarmentID,GarmentCode,Rate,OrderType,CreatedBy
 	)
 	VALUES
 	(
-		@GarmentID,@Rate,@OrderType,@CreatedBy
+		@GarmentID,@GarmentCode,@Rate,@OrderType,@CreatedBy
 	)
 
 	COMMIT

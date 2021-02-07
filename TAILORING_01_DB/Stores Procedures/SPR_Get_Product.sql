@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <22th JAN 2021>
+-- Update date: <07th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Product] 1
@@ -22,7 +22,7 @@ BEGIN
 	SET @IMGPATH=(SELECT [ConfigValue]
 	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
 
-	SELECT GarmentID,GarmentCode,GarmentName
+	SELECT GarmentID,GarmentName
 	,GarmentType, IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo
 	,CONVERT(INT,LastChange) LastChange
 	FROM dbo.tblProductMaster WITH(NOLOCK)

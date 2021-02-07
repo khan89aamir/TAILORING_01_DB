@@ -1,6 +1,5 @@
 ﻿CREATE TABLE [dbo].[tblProductMaster](
 	[GarmentID] [int] IDENTITY(1,1) NOT NULL,
-	[GarmentCode] [nvarchar](50) NULL,
 	[GarmentName] [nvarchar](100) NULL,
 	[Photo] [varchar](100) NULL,
 	[GarmentType] [varchar](50) NULL,

@@ -1,12 +1,12 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
--- Create date: <24th DEC 2020>
--- Update date: <07th FEB 2021>
+-- Create date: <07th FEB 2021>
+-- Update date: <>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_Product_Rate] 0,2
-CREATE PROCEDURE [dbo].[SPR_Get_Product_Rate]
-@GarmentID INT=0
+--EXEC [dbo].[SPR_Search_Product_Rate] 0,2
+CREATE PROCEDURE [dbo].[SPR_Search_Product_Rate]
+@GarmentName NVARCHAR(MAX)='0'
 ,@OrderType INT=0
 
 AS
@@ -19,7 +19,7 @@ BEGIN
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	DECLARE @IMGPATH VARCHAR(MAX)=''
 
-	SET @PARAMERES=@OrderType
+	SET @PARAMERES=CONCAT(@GarmentName,',',@OrderType)
 
 	SET @IMGPATH=(SELECT [ConfigValue]
 	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
@@ -32,7 +32,7 @@ BEGIN
 	,Convert(INT,prm.LastChange) LastChange
 	FROM tblProductMaster pm
 	INNER JOIN tblProductRateMaster prm ON pm.GarmentID=prm.GarmentID
-	WHERE pm.GarmentID=IIF(@GarmentID=0,pm.GarmentID,@GarmentID)
+	WHERE pm.GarmentName LIKE IIF(@GarmentName='0',pm.GarmentName,'%'+@GarmentName+'%')
 	AND prm.OrderType=IIF(@OrderType=2,prm.OrderType,@OrderType)
 	--AND prm.OrderType=@OrderType
 	ORDER BY pm.GarmentID
