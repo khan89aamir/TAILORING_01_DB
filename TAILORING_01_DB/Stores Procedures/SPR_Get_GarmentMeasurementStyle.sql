@@ -1,10 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <01st FEB 2021>
+-- Update date: <09th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC SPR_Get_GarmentMeasurementStyle 6
+--EXEC SPR_Get_GarmentMeasurementStyle 1
 CREATE PROCEDURE [dbo].[SPR_Get_GarmentMeasurementStyle]
 @OrderID INT=0
 
@@ -21,21 +21,43 @@ BEGIN
 	SET @ImagePath=(SELECT ConfigValue FROM [dbo].[tblTailoringConfig] WHERE ConfigName='GenericImagePath')
 
 	--Garment Details
-	SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
-	,ft.FitTypeID,SUM(sd.QTY) QTY,CONCAT(@ImagePath,pm.Photo) Photo
-	,os.OrderStatus
-	--sd.TrailDate,sd.DeliveryDate
-	FROM [dbo].[tblSalesOrder] so
-	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
-	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
-	INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
-	INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
-	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
-	INNER JOIN dbo.tblOrderStatus os ON sd.SalesOrderDetailsID=os.SalesOrderDetailsID AND os.SalesOrderID=@OrderID
-	WHERE so.SalesOrderID=@OrderID
-	GROUP BY pm.GarmentID,pm.GarmentName,st.StichTypeID
-	,ft.FitTypeID,Photo,sd.SalesOrderDetailsID,os.OrderStatus
-	ORDER BY sd.SalesOrderDetailsID
+	SELECT a.GarmentID,a.GarmentName,a.StichTypeID,a.FitTypeID,a.QTY,a.Photo,a.OrderStatus FROM
+	(
+		SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
+		,ft.FitTypeID,t.QTY,pm.Photo
+		,os.OrderStatus,sd.SalesOrderDetailsID
+		,ROW_NUMBER() OVER(PARTITION BY pm.GarmentID ORDER BY pm.GarmentID) rw
+		FROM [dbo].[tblSalesOrder] so
+		INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
+		INNER JOIN 
+		(
+			SELECT SalesOrderID,GarmentID,SUM(QTY) QTY FROM [tblSalesOrderDetails] WITH(NOLOCK) WHERE SalesOrderID=@OrderID
+			GROUP BY SalesOrderID,GarmentID
+		)t ON sd.SalesOrderID=t.SalesOrderID AND sd.GarmentID=t.GarmentID
+		INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
+		INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
+		INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
+		INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
+		INNER JOIN dbo.tblOrderStatus os ON sd.SalesOrderDetailsID=os.SalesOrderDetailsID AND os.SalesOrderID=@OrderID
+		WHERE so.SalesOrderID=@OrderID
+	)a
+	WHERE a.rw=1
+	ORDER BY a.SalesOrderDetailsID
+	--SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID,ft.FitTypeID
+	--,SUM(sd.QTY) QTY,CONCAT(@ImagePath,pm.Photo) Photo
+	--,os.OrderStatus
+	----sd.TrailDate,sd.DeliveryDate
+	--FROM [dbo].[tblSalesOrder] so
+	--INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
+	--INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
+	--INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
+	--INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
+	--INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
+	--INNER JOIN dbo.tblOrderStatus os ON sd.SalesOrderDetailsID=os.SalesOrderDetailsID AND os.SalesOrderID=@OrderID
+	--WHERE so.SalesOrderID=@OrderID
+	--GROUP BY pm.GarmentID,pm.GarmentName,st.StichTypeID
+	--,ft.FitTypeID,Photo,sd.SalesOrderDetailsID,os.OrderStatus
+	--ORDER BY sd.SalesOrderDetailsID
 
 	--Measurement details
 	SELECT  cm.GarmentID,cm.MeasurementID
