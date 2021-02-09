@@ -1,12 +1,13 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <25th JAN 2021>
--- Update date: <01st FEB 2021>
+-- Update date: <09th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
+-- DROP PROCEDURE [dbo].[SPR_Update_SalesOrderDetails]
 --EXEC SPR_Update_SalesOrderDetails 0,0,0,0
 CREATE PROCEDURE [dbo].[SPR_Update_SalesOrderDetails]
-@dtSalesOrderDetails dbo.tblSalesOrderDetailsType READONLY
+@dtSalesOrderDetails dbo.tblSalesOrderDetailsUpdateType READONLY
 ,@dtMeasurement dbo.tblCustomerMeasurementType READONLY
 ,@dtStyle dbo.tblCustomerStyleType READONLY
 ,@dtBodyPosture dbo.tblCustomerBodyPostureType READONLY
@@ -28,7 +29,8 @@ BEGIN
 	SET so.StichTypeID=sd.StichTypeID,so.FitTypeID=sd.FitTypeID
 	,so.UpdatedOn=GETDATE(),so.UpdatedBy=sd.CreatedBy
 	FROM [dbo].[tblSalesOrderDetails] so
-	INNER JOIN @dtSalesOrderDetails sd ON so.SalesOrderID=sd.SalesOrderID AND so.GarmentID=sd.GarmentID
+	INNER JOIN @dtSalesOrderDetails sd ON so.SalesOrderID=sd.SalesOrderID 
+	AND so.SalesOrderDetailsID=sd.SalesOrderDetailsID AND so.GarmentID=sd.GarmentID
 
 	DELETE FROM tblCustomerMeasurement WHERE SalesOrderID=@SalesOrderID
 	INSERT tblCustomerMeasurement

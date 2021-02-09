@@ -24,7 +24,7 @@ BEGIN
 	SELECT a.GarmentID,a.GarmentName,a.StichTypeID,a.FitTypeID,a.QTY,a.Photo,a.OrderStatus FROM
 	(
 		SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
-		,ft.FitTypeID,t.QTY,pm.Photo
+		,ft.FitTypeID,t.QTY,CONCAT(@ImagePath,pm.Photo) Photo
 		,os.OrderStatus,sd.SalesOrderDetailsID
 		,ROW_NUMBER() OVER(PARTITION BY pm.GarmentID ORDER BY pm.GarmentID) rw
 		FROM [dbo].[tblSalesOrder] so
@@ -80,6 +80,20 @@ BEGIN
 	INNER JOIN [dbo].[tblBodyPostureMaster] bp ON cb.BodyPostureID=bp.BodyPostureID
 	WHERE cb.SalesOrderID=@OrderID
 	ORDER BY cb.BodyPostureID,cb.BodyPostureMappingID
+
+
+	SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
+		,ft.FitTypeID,sd.QTY,pm.Photo
+		,os.OrderStatus,sd.SalesOrderDetailsID
+		,ROW_NUMBER() OVER(PARTITION BY pm.GarmentID ORDER BY pm.GarmentID) rw
+		FROM [dbo].[tblSalesOrder] so
+		INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
+		INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
+		INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
+		INNER JOIN [dbo].[tblFitTypeMaster] ft ON sd.FitTypeID=ft.FitTypeID
+		INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
+		INNER JOIN dbo.tblOrderStatus os ON sd.SalesOrderDetailsID=os.SalesOrderDetailsID AND os.SalesOrderID=@OrderID
+		WHERE so.SalesOrderID=@OrderID
 
 	END TRY
 
