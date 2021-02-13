@@ -23,7 +23,7 @@ BEGIN
 	, st.StichTypeName ,ft.FitTypeName ,sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
-	ROUND( ((sd.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total
+	ROUND( ((sd.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total,sd.SubOrderNo
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
