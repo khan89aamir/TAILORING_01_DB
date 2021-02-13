@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th FEB 2021>
--- Update date: <12th FEB 2021>
+-- Update date: <14th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_MOM_Sales_Report '2021-02-01'
@@ -59,7 +59,7 @@ BEGIN
 			CLOSE cursor_Garment;
 			DEALLOCATE cursor_Garment;
 
-	SET @query1 ='SELECT a.SalesOrderID,a.OrderNo,'+@Columns+' FROM(
+	SET @query1 ='SELECT a.SalesOrderID,a.OrderNo,a.QTY,'+@Columns+' FROM(
 	SELECT so.SalesOrderID
 	,so.OrderNo
 	,pm.GarmentName
@@ -82,10 +82,10 @@ BEGIN
 	WHERE YEAR(so.OrderDate)=YEAR('''+CAST(@MonthDate AS VARCHAR)+''') AND MONTH(so.OrderDate)=MONTH('''+CAST(@MonthDate AS VARCHAR)+''') AND sd.GarmentID=sd.MasterGarmentID
 	)a
 	WHERE a.rw=1
-	GROUP BY a.SalesOrderID,a.OrderNo'
+	GROUP BY a.SalesOrderID,a.OrderNo,a.QTY'
 
 	SET @query2=' UNION
-	SELECT a.SalesOrderID,a.OrderNo,'+@Columns+' FROM(
+	SELECT a.SalesOrderID,a.OrderNo,a.QTY,'+@Columns+' FROM(
 	SELECT so.SalesOrderID
 	,so.OrderNo
 	,pm.GarmentName
@@ -103,19 +103,45 @@ BEGIN
 	WHERE YEAR(so.OrderDate)=YEAR('''+CAST(@MonthDate AS VARCHAR)+''') AND MONTH(so.OrderDate)=MONTH('''+CAST(@MonthDate AS VARCHAR)+''') AND sd.GarmentID<>sd.MasterGarmentID
 	)a
 	WHERE a.rw=1
-	GROUP BY a.SalesOrderID,a.OrderNo'
+	GROUP BY a.SalesOrderID,a.OrderNo,a.QTY'
 
-	SET @query3='SELECT b.SalesOrderID,b.OrderNo,'+@SumOfQTY+' FROM('
+	SET @query3='SELECT b.SalesOrderID,b.OrderNo,'+@SumOfQTY+',SUM(b.QTY) Total FROM('
 	SET @query2+=')b GROUP BY b.SalesOrderID,b.OrderNo'
 	
 	--PRINT @query3	--287
 	--PRINT @query1	--1645
 	--PRINT @query2	--1530
 
-	--PRINT @query3+@query1+@query2
+	PRINT @query3+@query1+@query2
+	CREATE TABLE #tblMOM_Sales
+	(
+		SalesOrderID INT
+		,OrderNo VARCHAR(MAX)
+		,[Shirt] INT
+		,[Trouser] INT
+		,[Jacket Single B] INT
+		,[Jacket D.B] INT
+		,[Tuxedo] INT
+		,[Bandgalan] INT
+		,[2 PC SUIT] INT
+		,[3 PC SUIT] INT
+		,Total INT
+	)
 
+	INSERT INTO #tblMOM_Sales
 	EXEC (@query3 + @query1 + @query2)
-			 
+	
+	--SELECT * FROM #tblMOM_Sales
+	SELECT * FROM #tblMOM_Sales
+	UNION
+	SELECT '' SalesOrderID,'Total' AS OrderNo,SUM(a.Shirt)Shirt,SUM(a.Trouser) Trouser, SUM(a.[Jacket Single B]) [Jacket  Single B]
+	,SUM(a.[Jacket D.B]) [Jacket  D. B], SUM(a.[Tuxedo]) Tuxedo, SUM(a.[Bandgalan]) Bandgalan, SUM(a.[2 PC SUIT]) [2 PC SUIT], SUM(a.[3 PC SUIT]) [3 PC SUIT],SUM(a.Total) Total
+	FROM
+	(
+		SELECT * FROM #tblMOM_Sales
+	)a
+	ORDER BY 2
+
 	END TRY
 	
 	BEGIN CATCH
