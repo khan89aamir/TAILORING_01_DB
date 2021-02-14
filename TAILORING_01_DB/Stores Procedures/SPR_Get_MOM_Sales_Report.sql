@@ -112,7 +112,7 @@ BEGIN
 	--PRINT @query1	--1645
 	--PRINT @query2	--1530
 
-	PRINT @query3+@query1+@query2
+	--PRINT @query3+@query1+@query2
 	CREATE TABLE #tblMOM_Sales
 	(
 		SalesOrderID INT

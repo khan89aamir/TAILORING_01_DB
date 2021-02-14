@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <31st JAN 2021>
--- Update date: <11th FEB 2021>
+-- Update date: <14th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].SPR_Get_MasterOrderDetails 1
@@ -26,7 +26,8 @@ BEGIN
 	, st.StichTypeName ,ft.FitTypeName ,sd.TrimAmount,t.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
-	ROUND( ((t.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total
+	ROUND( (t.QTY * sd.Rate) ,0) AS Total
+	--ROUND( ((t.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total
 	,ROW_NUMBER() OVER(PARTITION BY pm.GarmentID,sd.[Service] ORDER BY pm.GarmentID,sd.[Service]) rw
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
@@ -50,7 +51,8 @@ BEGIN
 	, st.StichTypeName ,ft.FitTypeName ,sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
-	ROUND( ((sd.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total
+	ROUND( (sd.QTY * sd.Rate) ,0) AS Total
+	--ROUND( ((sd.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.MasterGarmentID=pm.GarmentID
