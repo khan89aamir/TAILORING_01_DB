@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <22nd OCT 2020>
--- Update date: <27th JAN 2021>
+-- Update date: <15th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_GarmentStyle] 1
@@ -18,10 +18,10 @@ BEGIN
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	SET @PARAMERES=@GarmentID
 
-	SELECT sp.StyleID,sm.StyleName
-	FROM [GarmentStyleMapping] sp
-	INNER JOIN [tblStyleMaster] sm ON sp.StyleID=sm.StyleID
-	INNER JOIN [tblProductMaster] pm ON sp.GarmentID=pm.GarmentID
+	SELECT sp.GarmentStyleID,sp.StyleID,sm.StyleName,sp.IsMandatory
+	FROM GarmentStyleMapping sp
+	INNER JOIN tblStyleMaster sm ON sp.StyleID=sm.StyleID
+	INNER JOIN tblProductMaster pm ON sp.GarmentID=pm.GarmentID
 	WHERE sp.GarmentID=@GarmentID
 	ORDER BY sm.StyleName
 
