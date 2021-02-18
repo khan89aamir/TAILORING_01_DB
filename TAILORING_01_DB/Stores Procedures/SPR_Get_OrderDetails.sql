@@ -1,10 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <09th DEC 2020>
--- Update date: <14th FEB 2021>
+-- Update date: <18th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
---EXEC [dbo].[SPR_Get_OrderDetails] 2
+--EXEC [dbo].[SPR_Get_OrderDetails] 1
 CREATE PROCEDURE [dbo].[SPR_Get_OrderDetails]
 @SalesOrderID INT=0
 
@@ -19,13 +19,12 @@ BEGIN
 	SET @PARAMERES=@SalesOrderID
 
 
-	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,pm.GarmentName,pm.GarmentID,prm.GarmentCode
+	SELECT so.SalesOrderID,sd.SalesOrderDetailsID,sd.SubOrderNo,pm.GarmentName,pm.GarmentID,prm.GarmentCode
 	, st.StichTypeName ,ft.FitTypeName ,sd.TrimAmount,sd.QTY,sd.Rate,
 	(CASE sd.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) [Service]
 	,IIF(sd.TrailDate='1900-01-01',NULL,sd.TrailDate) TrailDate,sd.DeliveryDate,
 	ROUND( (sd.QTY * sd.Rate) ,0) AS Total
 	--ROUND( ((sd.QTY * sd.Rate)+ sd.TrimAmount) ,0) AS Total
-	,sd.SubOrderNo
 	FROM [dbo].[tblSalesOrder] so
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
