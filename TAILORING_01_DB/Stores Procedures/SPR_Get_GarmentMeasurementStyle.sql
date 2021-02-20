@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <09th FEB 2021>
+-- Update date: <20th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_GarmentMeasurementStyle 1
