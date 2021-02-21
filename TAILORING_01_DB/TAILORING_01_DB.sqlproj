@@ -202,6 +202,7 @@
     <Build Include="Views\vw_OrderDetails_RDLC.sql" />
     <Build Include="Table Types\tblSalesOrderDetailsUpdateType.sql" />
     <Build Include="Stores Procedures\SPR_Get_MOM_Sales_Report.sql" />
+    <Build Include="Stores Procedures\SPR_Get_OrderList_Chalan.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />

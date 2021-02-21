@@ -1,9 +1,9 @@
 ﻿CREATE VIEW [dbo].[vw_OrderDetails_RDLC]
 as
- select  so.SalesOrderID , sod.SubOrderNo,pm.GarmentName,stm.StichTypeName as StichType,ftm.FitTypeName as FitType,'Normal' as ServiceType,sod.TrailDate as gTrailDate,sod.DeliveryDate,sod.Rate,so.OrderNo,
+ SELECT  so.SalesOrderID , sod.SubOrderNo, so.OrderDate,pm.GarmentName,stm.StichTypeName as StichType,ftm.FitTypeName as FitType,'Normal' as ServiceType,sod.TrailDate as gTrailDate,sod.DeliveryDate,sod.Rate,so.OrderNo,
   osm.OrderStatus,os.ReceivedDate,os.DeliveredDate,
-  (select Name from EmployeeDetails where EmpID=os.ReceivedBy ) as ReceivedBy, 
-  (select Name from EmployeeDetails where EmpID=os.DeliveredBy ) as DeliveredBy
+  (select [Name] from EmployeeDetails where EmpID=os.ReceivedBy ) as ReceivedBy, 
+  (select [Name] from EmployeeDetails where EmpID=os.DeliveredBy ) as DeliveredBy
 
    from tblSalesOrder so join tblSalesOrderDetails sod
   on so.SalesOrderID=sod.SalesOrderID join 
