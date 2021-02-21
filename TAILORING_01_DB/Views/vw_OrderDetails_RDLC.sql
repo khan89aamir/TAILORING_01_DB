@@ -1,6 +1,7 @@
 ﻿CREATE VIEW [dbo].[vw_OrderDetails_RDLC]
 as
- select  so.SalesOrderID , sod.SubOrderNo,pm.GarmentName,stm.StichTypeName as StichType,ftm.FitTypeName as FitType,'Normal' as ServiceType,sod.TrailDate as gTrailDate,sod.DeliveryDate,sod.Rate,so.OrderNo,
+
+ select  so.SalesOrderID , sod.SubOrderNo,pm.GarmentName,stm.StichTypeName as StichType,ftm.FitTypeName as FitType,'Normal' as ServiceType, cast(NULLIF( sod.TrailDate,'') AS DATE)  as gTrailDate,sod.DeliveryDate,sod.Rate,so.OrderNo,
   osm.OrderStatus,os.ReceivedDate,os.DeliveredDate,
   (select Name from EmployeeDetails where EmpID=os.ReceivedBy ) as ReceivedBy, 
   (select Name from EmployeeDetails where EmpID=os.DeliveredBy ) as DeliveredBy
@@ -12,3 +13,4 @@ tblOrderStatus os on sod.SalesOrderDetailsID=os.SalesOrderDetailsID join
  join tblStichTypeMaster stm on sod.StichTypeID=stm.StichTypeID 
  join tblFitTypeMaster ftm on sod.FitTypeID=ftm.FitTypeID
  join tblOrderStatusMaster osm on os.OrderStatus=osm.Id
+
