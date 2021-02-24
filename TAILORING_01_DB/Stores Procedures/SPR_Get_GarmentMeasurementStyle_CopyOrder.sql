@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <27th JAN 2021>
--- Update date: <>
+-- Update date: <23rd FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_GarmentMeasurementStyle_CopyOrder 1,1
@@ -22,6 +22,12 @@ BEGIN
 	DECLARE @StichTypeID INT=0
 	DECLARE @FitTypeID INT=0
 	DECLARE @OrderDate DATE=NULL
+	
+	DECLARE @MinimumOrderCopy INT=0
+	DECLARE @CustomerOrder INT=0
+
+	--Fetching Minimum month for last Order copy
+	SELECT TOP 1 @MinimumOrderCopy=CopyOrderMonth FROM [dbo].[tblSoftwareSetting] WITH(NOLOCK)
 
 	--Fetching Garment Details
 	SELECT TOP 1 @SalesOrderID=so.SalesOrderID,@StichTypeID=st.StichTypeID
@@ -34,31 +40,38 @@ BEGIN
 	INNER JOIN [dbo].[tblStichTypeMaster] st ON sd.StichTypeID=st.StichTypeID
 	WHERE so.CustomerID=@CustomerID AND sd.GarmentID=@GarmentID
 	ORDER BY so.SalesOrderID DESC
+	
+	-- Get last order difference date in month
+	SELECT @CustomerOrder=( DATEDIFF(mm,@OrderDate,CONVERT(DATE,GETDATE())) )
+	
+	IF @CustomerOrder<=@MinimumOrderCopy
+		BEGIN
 
-	SELECT @GarmentID [GarmentID],@StichTypeID [StichTypeID],@FitTypeID [FitTypeID]
-	,@SalesOrderID [SalesOrderID],@OrderDate [OrderDate]
+		SELECT @GarmentID [GarmentID],@StichTypeID [StichTypeID],@FitTypeID [FitTypeID]
+		,@SalesOrderID [SalesOrderID],@OrderDate [OrderDate]
 
-	--Measurement details
-	SELECT  cm.GarmentID,cm.MeasurementID
-	,IIF(CONVERT(VARCHAR,cm.MeasurementValue)='0.00','',CONVERT(VARCHAR,cm.MeasurementValue)) MeasurementValue
-	FROM [dbo].tblCustomerMeasurement cm
-	INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
-	WHERE cm.SalesOrderID=@SalesOrderID AND cm.GarmentID=@GarmentID
-	--ORDER BY cm.GarmentID,cm.MeasurementID
+		--Measurement details
+		SELECT  cm.GarmentID,cm.MeasurementID
+		,IIF(CONVERT(VARCHAR,cm.MeasurementValue)='0.00','',CONVERT(VARCHAR,cm.MeasurementValue)) MeasurementValue
+		FROM [dbo].tblCustomerMeasurement cm
+		INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
+		WHERE cm.SalesOrderID=@SalesOrderID AND cm.GarmentID=@GarmentID
+		--ORDER BY cm.GarmentID,cm.MeasurementID
 
-	--Style Name AND Image
-	SELECT  cs.CustStyleID,cs.GarmentID,cs.StyleID,cs.QTY,cs.StyleImageID
-	FROM [dbo].tblCustomerStyle cs
-	INNER JOIN [dbo].[tblStyleMaster] sm ON cs.StyleID=sm.StyleID
-	WHERE cs.SalesOrderID=@SalesOrderID AND cs.GarmentID=@GarmentID
-	--ORDER BY cs.GarmentID,cs.QTY,cs.StyleID
+		--Style Name AND Image
+		SELECT  cs.CustStyleID,cs.GarmentID,cs.StyleID,cs.QTY,cs.StyleImageID
+		FROM [dbo].tblCustomerStyle cs
+		INNER JOIN [dbo].[tblStyleMaster] sm ON cs.StyleID=sm.StyleID
+		WHERE cs.SalesOrderID=@SalesOrderID AND cs.GarmentID=@GarmentID
+		--ORDER BY cs.GarmentID,cs.QTY,cs.StyleID
 
-	--Body Posture Image
-	SELECT cb.BodyPostureMappingID,cb.BodyPostureID,cb.GarmentID
-	FROM [dbo].[tblCustomerBodyPosture] cb
-	INNER JOIN [dbo].[tblBodyPostureMaster] bp ON cb.BodyPostureID=bp.BodyPostureID
-	WHERE cb.SalesOrderID=@SalesOrderID AND cb.GarmentID=@GarmentID
-	--ORDER BY cb.BodyPostureID,cb.BodyPostureMappingID
+		--Body Posture Image
+		SELECT cb.BodyPostureMappingID,cb.BodyPostureID,cb.GarmentID
+		FROM [dbo].[tblCustomerBodyPosture] cb
+		INNER JOIN [dbo].[tblBodyPostureMaster] bp ON cb.BodyPostureID=bp.BodyPostureID
+		WHERE cb.SalesOrderID=@SalesOrderID AND cb.GarmentID=@GarmentID
+		--ORDER BY cb.BodyPostureID,cb.BodyPostureMappingID
+		END
 
 	END TRY
 

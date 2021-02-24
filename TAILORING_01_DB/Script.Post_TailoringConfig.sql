@@ -19,14 +19,6 @@ INSERT INTO [dbo].[tblTailoringConfig](ConfigName,ConfigValue)
 VALUES('ActivationCount','3')
 GO
 
-INSERT INTO [dbo].[tblTailoringConfig](ConfigName,ConfigValue)
-VALUES('ImagePath','C:\Tailoring Images\')
-GO
-
-INSERT INTO [dbo].[tblTailoringConfig](ConfigName,ConfigValue)
-VALUES('GenericImagePath','C:\Tailoring Images\Generic\')
-GO
-
 
 TRUNCATE TABLE [dbo].[tblFitTypeMaster]
 SET IDENTITY_INSERT [dbo].[tblFitTypeMaster] ON 
@@ -71,9 +63,6 @@ INSERT INTO [dbo].[tblBodyPostureMaster](BodyPostureID,BodyPostureType,GarmentTy
 VALUES(3,'Shoulder','Top')
 GO
 
-INSERT INTO [dbo].[tblBodyPostureMaster](BodyPostureID,BodyPostureType,GarmentType)
-VALUES(4,'Leg Shape','Bottom')
-GO
 
 SET IDENTITY_INSERT [dbo].[tblBodyPostureMaster] OFF
 
