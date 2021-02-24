@@ -1,16 +1,15 @@
 ﻿CREATE VIEW [dbo].[vw_OrderDetails_RDLC]
 as
 
- select  so.SalesOrderID , sod.SubOrderNo,pm.GarmentName,stm.StichTypeName as StichType,ftm.FitTypeName as FitType,'Normal' as ServiceType, cast(NULLIF( sod.TrailDate,'') AS DATE)  as gTrailDate,sod.DeliveryDate,sod.Rate,so.OrderNo,
+ SELECT  so.SalesOrderID , sod.SubOrderNo,pm.GarmentName,stm.StichTypeName AS StichType,ftm.FitTypeName AS FitType,(CASE sod.[Service] WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) AS ServiceType, CAST(NULLIF( sod.TrailDate,'') AS DATE)  as gTrailDate,sod.DeliveryDate,sod.Rate,so.OrderNo,
   osm.OrderStatus,os.ReceivedDate,os.DeliveredDate,
-  (select [Name] from EmployeeDetails where EmpID=os.ReceivedBy ) as ReceivedBy, 
-  (select [Name] from EmployeeDetails where EmpID=os.DeliveredBy ) as DeliveredBy
+  (SELECT [Name] FROM EmployeeDetails WITH(NOLOCK) WHERE EmpID=os.ReceivedBy ) AS ReceivedBy, 
+  (SELECT [Name] FROM EmployeeDetails WITH(NOLOCK) WHERE EmpID=os.DeliveredBy ) AS DeliveredBy
 
-   from tblSalesOrder so join tblSalesOrderDetails sod
-  on so.SalesOrderID=sod.SalesOrderID join 
-tblOrderStatus os on sod.SalesOrderDetailsID=os.SalesOrderDetailsID join
- tblProductMaster pm on sod.GarmentID=pm.GarmentID
- join tblStichTypeMaster stm on sod.StichTypeID=stm.StichTypeID 
- join tblFitTypeMaster ftm on sod.FitTypeID=ftm.FitTypeID
- join tblOrderStatusMaster osm on os.OrderStatus=osm.Id
-
+  FROM tblSalesOrder so 
+  join tblSalesOrderDetails sod ON so.SalesOrderID=sod.SalesOrderID 
+  join tblOrderStatus os ON sod.SalesOrderDetailsID=os.SalesOrderDetailsID 
+  join tblProductMaster pm ON sod.GarmentID=pm.GarmentID
+  join tblStichTypeMaster stm ON sod.StichTypeID=stm.StichTypeID 
+  join tblFitTypeMaster ftm ON sod.FitTypeID=ftm.FitTypeID
+  join tblOrderStatusMaster osm ON os.OrderStatus=osm.Id
