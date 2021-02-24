@@ -19,6 +19,14 @@ INSERT INTO [dbo].[tblTailoringConfig](ConfigName,ConfigValue)
 VALUES('ActivationCount','3')
 GO
 
+TRUNCATE TABLE [dbo].[tblSoftwareSetting]
+SET IDENTITY_INSERT [dbo].[tblSoftwareSetting] ON 
+GO
+INSERT [dbo].[tblSoftwareSetting] ([SoftwareSettingID], [ImagePath], [GenericImagePath], [CopyOrderMonth], [CreatedBy], [CreatedOn], [UpdatedBy], [UpdatedOn]) 
+VALUES (1, N'C:\Tailoring Images', N'C:\Tailoring Images\Generic', 3, 0, CAST(N'2021-02-22 17:35:13.520' AS DateTime), 0, CAST(N'2021-02-22 17:36:08.000' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[tblSoftwareSetting] OFF
+GO
 
 TRUNCATE TABLE [dbo].[tblFitTypeMaster]
 SET IDENTITY_INSERT [dbo].[tblFitTypeMaster] ON 
