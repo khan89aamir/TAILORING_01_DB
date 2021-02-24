@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR>
 -- Create date: <06th NOV 2020>
--- Update date: <27th JAN 2021>
+-- Update date: <22nd FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_BodyPosture_ByGarmentID 1
@@ -16,11 +16,12 @@ BEGIN
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	DECLARE @GarmentType VARCHAR(MAX)=''
-	DECLARE @IMGPATH VARCHAR(MAX)=''
+	DECLARE @ImagePath VARCHAR(MAX)=''
 
 	SET @PARAMERES=@GarmentID
-	SET @IMGPATH=(SELECT [ConfigValue]
-	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='ImagePath')
+
+	SET @ImagePath=(SELECT TOP 1 ImagePath FROM tblSoftwareSetting WITH(NOLOCK))
+	SET @ImagePath=CONCAT(@ImagePath,'\')
 
 	SET @GarmentType=(SELECT GarmentType
 	FROM tblProductMaster WITH(NOLOCK) WHERE GarmentID=@GarmentID)
@@ -30,7 +31,7 @@ BEGIN
 	WHERE bm.GarmentType=@GarmentType
 
 	SELECT bma.BodyPostureMappingID,bm.BodyPostureID,bm.BodyPostureType,bma.BodyPostureName
-	,IIF(bma.BodyPostureImage IS NULL,bma.BodyPostureImage,CONCAT(@IMGPATH,bma.BodyPostureImage)) Photo
+	,IIF(bma.BodyPostureImage IS NULL,bma.BodyPostureImage,CONCAT(@ImagePath,bma.BodyPostureImage)) Photo
 	FROM tblBodyPostureMaster bm
 	INNER JOIN tblBodyPostureMapping bma ON bm.BodyPostureID=bma.BodyPostureID
 	WHERE bm.GarmentType=@GarmentType

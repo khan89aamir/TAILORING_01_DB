@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <20th FEB 2021>
+-- Update date: <22nd FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_GarmentMeasurementStyle 1
@@ -18,7 +18,8 @@ BEGIN
 	DECLARE @PARAMERES VARCHAR(MAX)=''
 	SET @PARAMERES=@OrderID
 
-	SET @ImagePath=(SELECT ConfigValue FROM [dbo].[tblTailoringConfig] WHERE ConfigName='GenericImagePath')
+	SET @ImagePath=(SELECT TOP 1 GenericImagePath FROM tblSoftwareSetting WITH(NOLOCK))
+	SET @ImagePath=CONCAT(@ImagePath,'\')
 
 	--Garment Details
 	SELECT a.GarmentID,a.GarmentName,a.StichTypeID,a.FitTypeID,a.QTY,a.Photo,a.OrderStatus FROM

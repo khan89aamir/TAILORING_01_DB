@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <12th OCT 2020>
--- Update date: <07th FEB 2021>
+-- Update date: <22nd FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Search_Product]
@@ -19,8 +19,8 @@ BEGIN
 	SET @PARAMERES=@GarmentName
 	DECLARE @IMGPATH VARCHAR(MAX)=''
 
-	SET @IMGPATH=(SELECT [ConfigValue]
-	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
+	SET @IMGPATH=(SELECT TOP 1 GenericImagePath FROM tblSoftwareSetting WITH(NOLOCK))
+	SET @IMGPATH=CONCAT(@IMGPATH,'\')
 
 	SELECT GarmentID,GarmentName
 	,GarmentType, IIF(Photo IS NULL,Photo,CONCAT(@IMGPATH,Photo)) Photo

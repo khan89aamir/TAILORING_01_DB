@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th FEB 2021>
--- Update date: <14th FEB 2021>
+-- Update date: <24th FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_MOM_Sales_Report '2021-02-01'
@@ -32,7 +32,7 @@ BEGIN
 	DECLARE cursor_Garment CURSOR
 			FOR
 			
-			SELECT GarmentID,GarmentName 
+			SELECT GarmentID,GarmentName
 			FROM tblProductMaster WITH(NOLOCK)
 	
 			OPEN cursor_Garment;
@@ -112,19 +112,19 @@ BEGIN
 	--PRINT @query1	--1645
 	--PRINT @query2	--1530
 
-	--PRINT @query3+@query1+@query2
+	PRINT @query3+@query1+@query2
 	CREATE TABLE #tblMOM_Sales
 	(
 		SalesOrderID INT
 		,OrderNo VARCHAR(MAX)
 		,[Shirt] INT
 		,[Trouser] INT
-		,[Jacket Single B] INT
-		,[Jacket D.B] INT
+		,[JacketSingleB] INT
+		,[JacketDB] INT
 		,[Tuxedo] INT
 		,[Bandgalan] INT
-		,[2 PC SUIT] INT
-		,[3 PC SUIT] INT
+		,[2PCSUIT] INT
+		,[3PCSUIT] INT
 		,Total INT
 	)
 
@@ -134,8 +134,8 @@ BEGIN
 	--SELECT * FROM #tblMOM_Sales
 	SELECT * FROM #tblMOM_Sales
 	UNION
-	SELECT '' SalesOrderID,'Total' AS OrderNo,SUM(a.Shirt)Shirt,SUM(a.Trouser) Trouser, SUM(a.[Jacket Single B]) [Jacket  Single B]
-	,SUM(a.[Jacket D.B]) [Jacket  D. B], SUM(a.[Tuxedo]) Tuxedo, SUM(a.[Bandgalan]) Bandgalan, SUM(a.[2 PC SUIT]) [2 PC SUIT], SUM(a.[3 PC SUIT]) [3 PC SUIT],SUM(a.Total) Total
+	SELECT '' SalesOrderID,'Total' AS OrderNo,SUM(a.Shirt)Shirt,SUM(a.Trouser) Trouser, SUM(a.[JacketSingleB]) [JacketSingleB]
+	,SUM(a.[JacketDB]) [JacketDB], SUM(a.[Tuxedo]) Tuxedo, SUM(a.[Bandgalan]) Bandgalan, SUM(a.[2PCSUIT]) [2PCSUIT], SUM(a.[3PCSUIT]) [3PCSUIT],SUM(a.Total) Total
 	FROM
 	(
 		SELECT * FROM #tblMOM_Sales

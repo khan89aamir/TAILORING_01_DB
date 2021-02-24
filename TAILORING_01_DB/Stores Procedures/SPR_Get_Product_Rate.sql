@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <24th DEC 2020>
--- Update date: <07th FEB 2021>
+-- Update date: <22nd FEB 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Product_Rate] 0,2
@@ -17,18 +17,18 @@ BEGIN
 
 	BEGIN TRY
 	DECLARE @PARAMERES VARCHAR(MAX)=''
-	DECLARE @IMGPATH VARCHAR(MAX)=''
+	DECLARE @ImagePath VARCHAR(MAX)=''
 
 	SET @PARAMERES=@OrderType
 
-	SET @IMGPATH=(SELECT [ConfigValue]
-	FROM [dbo].[tblTailoringConfig] WITH(NOLOCK) WHERE [ConfigName]='GenericImagePath')
+	SET @ImagePath=(SELECT TOP 1 GenericImagePath FROM tblSoftwareSetting WITH(NOLOCK))
+	SET @ImagePath=CONCAT(@ImagePath,'\')
 
 	SELECT prm.GarmentRateID,pm.GarmentID,prm.GarmentCode,pm.GarmentName
 	,CONCAT(prm.GarmentCode,' ',pm.GarmentName) [GarmentCodeName]
 	,pm.GarmentType,ISNULL(prm.Rate,0) Rate
 	,(CASE prm.OrderType WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) OrderType
-	,IIF(pm.Photo IS NULL,pm.Photo,CONCAT(@IMGPATH,pm.Photo)) Photo
+	,IIF(pm.Photo IS NULL,pm.Photo,CONCAT(@ImagePath,pm.Photo)) Photo
 	,Convert(INT,prm.LastChange) LastChange
 	FROM tblProductMaster pm
 	INNER JOIN tblProductRateMaster prm ON pm.GarmentID=prm.GarmentID
