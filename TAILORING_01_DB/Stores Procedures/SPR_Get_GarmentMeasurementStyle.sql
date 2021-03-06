@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <22nd FEB 2021>
+-- Update date: <06th MAR 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_GarmentMeasurementStyle 1
@@ -22,9 +22,9 @@ BEGIN
 	SET @ImagePath=CONCAT(@ImagePath,'\')
 
 	--Garment Details
-	SELECT a.GarmentID,a.GarmentName,a.StichTypeID,a.FitTypeID,a.QTY,a.Photo,a.OrderStatus FROM
+	SELECT a.MasterGarmentID,a.GarmentID,a.GarmentName,a.StichTypeID,a.FitTypeID,a.QTY,a.Photo,a.OrderStatus FROM
 	(
-		SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
+		SELECT sd.MasterGarmentID,pm.GarmentID,pm.GarmentName,st.StichTypeID
 		,ft.FitTypeID,t.QTY,CONCAT(@ImagePath,pm.Photo) Photo
 		,os.OrderStatus,sd.SalesOrderDetailsID
 		,ROW_NUMBER() OVER(PARTITION BY pm.GarmentID ORDER BY pm.GarmentID) rw
@@ -61,7 +61,7 @@ BEGIN
 	--ORDER BY sd.SalesOrderDetailsID
 
 	--Measurement details
-	SELECT  cm.GarmentID,cm.MeasurementID
+	SELECT  cm.MasterGarmentID,cm.GarmentID,cm.MeasurementID
 	,IIF(CONVERT(VARCHAR,cm.MeasurementValue)='0.00','',CONVERT(VARCHAR,cm.MeasurementValue)) MeasurementValue
 	FROM [dbo].tblCustomerMeasurement cm
 	INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
@@ -69,21 +69,21 @@ BEGIN
 	ORDER BY cm.GarmentID,cm.MeasurementID
 
 	--Style Name AND Image
-	SELECT  cs.CustStyleID,cs.GarmentID,cs.StyleID,cs.QTY,cs.StyleImageID
+	SELECT  cs.CustStyleID,cs.MasterGarmentID,cs.GarmentID,cs.StyleID,cs.QTY,cs.StyleImageID
 	FROM [dbo].tblCustomerStyle cs
 	INNER JOIN [dbo].[tblStyleMaster] sm ON cs.StyleID=sm.StyleID
 	WHERE cs.SalesOrderID=@OrderID
 	ORDER BY cs.GarmentID,cs.QTY,cs.StyleID
 
 	--Body Posture Image
-	SELECT cb.BodyPostureMappingID,cb.BodyPostureID,cb.GarmentID
+	SELECT cb.BodyPostureMappingID,cb.BodyPostureID,cb.MasterGarmentID,cb.GarmentID
 	FROM [dbo].[tblCustomerBodyPosture] cb
 	INNER JOIN [dbo].[tblBodyPostureMaster] bp ON cb.BodyPostureID=bp.BodyPostureID
 	WHERE cb.SalesOrderID=@OrderID
 	ORDER BY cb.BodyPostureID,cb.BodyPostureMappingID
 
 
-	SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID
+	SELECT sd.MasterGarmentID,pm.GarmentID,pm.GarmentName,st.StichTypeID
 		,ft.FitTypeID,sd.QTY,pm.Photo
 		,os.OrderStatus,sd.SalesOrderDetailsID
 		,ROW_NUMBER() OVER(PARTITION BY pm.GarmentID ORDER BY pm.GarmentID) rw

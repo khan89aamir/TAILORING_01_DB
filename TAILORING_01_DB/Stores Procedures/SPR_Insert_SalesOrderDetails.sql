@@ -1,9 +1,10 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <15th Nov 2020>
--- Update date: <01st FEB 2021>
+-- Update date: <06th MAR 2021>
 -- Description:	<Description,,>
 -- =============================================
+-- DROP PROCEDURE [dbo].[SPR_Insert_SalesOrderDetails]
 --EXEC SPR_Insert_SalesOrderDetails 0,0,0,0,0
 CREATE PROCEDURE [dbo].[SPR_Insert_SalesOrderDetails]
 @dtSalesOrderDetails dbo.tblSalesOrderDetailsType READONLY
@@ -58,6 +59,7 @@ BEGIN
 	INSERT tblCustomerMeasurement
 	(
 	SalesOrderID
+	,MasterGarmentID
 	,GarmentID
 	,MeasurementID
 	,MeasurementValue
@@ -65,6 +67,7 @@ BEGIN
 	)
 	SELECT 
 	SalesOrderID
+	,MasterGarmentID
 	,GarmentID
 	,MeasurementID
 	,MeasurementValue
@@ -75,6 +78,7 @@ BEGIN
 	INSERT tblCustomerStyle
 	(
 	SalesOrderID
+	,MasterGarmentID
 	,GarmentID
 	,StyleID
 	,QTY
@@ -83,6 +87,7 @@ BEGIN
 	)
 
 	SELECT 	SalesOrderID
+	,MasterGarmentID
 	,GarmentID
 	,StyleID
 	,QTY
@@ -94,6 +99,7 @@ BEGIN
 	INSERT tblCustomerBodyPosture
 	(
 	SalesOrderID
+	,MasterGarmentID
 	,GarmentID
 	,BodyPostureID
 	,BodyPostureMappingID
@@ -101,6 +107,7 @@ BEGIN
 	)
 
 	SELECT 	SalesOrderID
+	,MasterGarmentID
 	,GarmentID
 	,BodyPostureID
 	,BodyPostureMappingID
