@@ -44,7 +44,9 @@ BEGIN
 		WHERE so.SalesOrderID=@OrderID
 	)a
 	WHERE a.rw=1
-	ORDER BY a.SalesOrderDetailsID
+	ORDER BY a.GarmentName
+	--a.SalesOrderDetailsID
+
 	--SELECT pm.GarmentID,pm.GarmentName,st.StichTypeID,ft.FitTypeID
 	--,SUM(sd.QTY) QTY,CONCAT(@ImagePath,pm.Photo) Photo
 	--,os.OrderStatus

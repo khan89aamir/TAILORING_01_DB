@@ -1,13 +1,14 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <29th DEC 2020>
--- Update date: <03rd JAN 2021>
+-- Update date: <07th MAR 2021>
 -- Description:	<Description,,>
 -- =============================================
--- EXEC SPR_Get_MeasurementValue_Report 2,1,0
+-- EXEC SPR_Get_MeasurementValue_Report 1,1002,1002,0
 CREATE PROCEDURE [dbo].[SPR_Get_MeasurementValue_Report]
 @SalesOrderID INT=0
 ,@GarmentID INT=0
+,@MasterGarmentID INT=0
 ,@Show INT=0
 AS
 BEGIN
@@ -33,7 +34,7 @@ BEGIN
 	 SELECT  mm.MeasurementID,mm.MeasurementName,cm.MeasurementValue
 	 FROM [dbo].tblCustomerMeasurement cm
 	 INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
-	 WHERE cm.SalesOrderID=@SalesOrderID AND cm.GarmentID=@GarmentID 
+	 WHERE cm.SalesOrderID=@SalesOrderID AND cm.GarmentID=@GarmentID AND cm.MasterGarmentID=@MasterGarmentID
 	 AND cm.MeasurementValue<>@Show
 	 ORDER BY mm.MeasurementID
 
@@ -69,7 +70,8 @@ SET @query2=@ColumnName+' UNION ALL SELECT '+@query1+'
  FROM [dbo].tblCustomerMeasurement cm
  INNER JOIN [dbo].[tblMeasurementMaster] mm ON cm.MeasurementID=mm.MeasurementID
  WHERE cm.SalesOrderID='+CAST(@SalesOrderID as VARCHAR)+'
- AND cm.GarmentID='+CAST(@GarmentID as VARCHAR)+'  AND cm.MeasurementValue<>0'
+ AND cm.GarmentID='+CAST(@GarmentID as VARCHAR)+'  AND cm.MasterGarmentID='+CAST(@MasterGarmentID as VARCHAR)+' 
+ AND cm.MeasurementValue<>0'
 
 --PRINT @query2
 
