@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <31st JAN 2021>
--- Update date: <14th FEB 2021>
+-- Update date: <07th MAR 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].SPR_Get_MasterOrderDetails 1
@@ -33,8 +33,9 @@ BEGIN
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN 
 		(
-			SELECT SalesOrderID,GarmentID,SUM(QTY) QTY FROM [tblSalesOrderDetails] WITH(NOLOCK) WHERE SalesOrderID=@SalesOrderID
-			GROUP BY SalesOrderID,GarmentID,[Service]
+			SELECT SalesOrderID,MasterGarmentID,GarmentID,SUM(QTY) QTY
+			FROM [tblSalesOrderDetails] WITH(NOLOCK) WHERE SalesOrderID=@SalesOrderID
+			GROUP BY SalesOrderID,MasterGarmentID,GarmentID,[Service]
 		)t ON sd.SalesOrderID=t.SalesOrderID AND sd.GarmentID=t.GarmentID
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
 	INNER JOIN dbo.tblProductRateMaster prm ON pm.GarmentID=prm.GarmentID AND prm.OrderType=sd.[Service]

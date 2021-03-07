@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <03rd JAN 2021>
--- Update date: <06th MAR 2021>
+-- Update date: <07th MAR 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_GarmentMeasurementStyle 1
@@ -27,13 +27,14 @@ BEGIN
 		SELECT sd.MasterGarmentID,pm.GarmentID,pm.GarmentName,st.StichTypeID
 		,ft.FitTypeID,t.QTY,CONCAT(@ImagePath,pm.Photo) Photo
 		,os.OrderStatus,sd.SalesOrderDetailsID
-		,ROW_NUMBER() OVER(PARTITION BY pm.GarmentID ORDER BY pm.GarmentID) rw
+		,ROW_NUMBER() OVER(PARTITION BY sd.MasterGarmentID,pm.GarmentID ORDER BY pm.GarmentID) rw
 		FROM [dbo].[tblSalesOrder] so
 		INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 		INNER JOIN 
 		(
-			SELECT SalesOrderID,GarmentID,SUM(QTY) QTY FROM [tblSalesOrderDetails] WITH(NOLOCK) WHERE SalesOrderID=@OrderID
-			GROUP BY SalesOrderID,GarmentID
+			SELECT SalesOrderID,MasterGarmentID,GarmentID,SUM(QTY) QTY 
+			FROM [tblSalesOrderDetails] WITH(NOLOCK) WHERE SalesOrderID=@OrderID
+			GROUP BY SalesOrderID,MasterGarmentID,GarmentID
 		)t ON sd.SalesOrderID=t.SalesOrderID AND sd.GarmentID=t.GarmentID
 		INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
 		INNER JOIN dbo.CustomerMaster cm ON so.CustomerID=cm.CustomerID
