@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblCustomerBodyPosture](
 	[CustPostureID] [int] IDENTITY(1,1) NOT NULL,
 	[SalesOrderID] [int] NOT NULL,
+	[MasterGarmentID] [int] NOT NULL,
 	[GarmentID] [int] NOT NULL,
 	[BodyPostureID] [int] NOT NULL,
 	[BodyPostureMappingID] [int] NOT NULL,

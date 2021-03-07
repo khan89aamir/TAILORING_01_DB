@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblCustomerStyle](
 	[CustStyleID] [int] IDENTITY(1,1) NOT NULL,
 	[SalesOrderID] [int] NOT NULL,
+	[MasterGarmentID] [int] NOT NULL,
 	[GarmentID] [int] NOT NULL,
 	[StyleID] [int] NOT NULL,
 	[QTY] [int] NOT NULL DEFAULT 1,

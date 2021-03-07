@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[tblCustomerMeasurement](
 	[CustMeasurementID] [int] IDENTITY(1,1) NOT NULL,
 	[SalesOrderID] [int] NOT NULL,
+	[MasterGarmentID] [int] NOT NULL,
 	[GarmentID] [int] NOT NULL,
 	[MeasurementID] [int] NOT NULL,
 	[MeasurementValue] [decimal](18, 2) NOT NULL,
