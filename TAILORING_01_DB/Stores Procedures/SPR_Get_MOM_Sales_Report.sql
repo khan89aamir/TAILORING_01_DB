@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <11th FEB 2021>
--- Update date: <28th FEB 2021>
+-- Update date: <09th MAR 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Get_MOM_Sales_Report '2021-03-01'
@@ -136,8 +136,8 @@ BEGIN
 	INNER JOIN [dbo].[tblSalesOrderDetails] sd ON so.SalesOrderID=sd.SalesOrderID
 	INNER JOIN 
 		(
-			SELECT SalesOrderID,GarmentID,SUM(QTY) QTY,[Service] FROM [tblSalesOrderDetails] WITH(NOLOCK)
-			GROUP BY SalesOrderID,GarmentID,[Service]
+			SELECT SalesOrderID,MasterGarmentID,GarmentID,SUM(QTY) QTY,[Service] FROM [tblSalesOrderDetails] WITH(NOLOCK)
+			GROUP BY SalesOrderID,MasterGarmentID,GarmentID,[Service]
 		)t ON sd.SalesOrderID=t.SalesOrderID AND sd.GarmentID=t.GarmentID AND sd.[Service]=t.[Service]
 	INNER JOIN dbo.tblProductMaster pm ON sd.GarmentID=pm.GarmentID
 	INNER JOIN dbo.tblProductRateMaster prm ON pm.GarmentID=prm.GarmentID AND prm.OrderType=sd.[Service]
