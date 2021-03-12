@@ -207,6 +207,7 @@
     <Build Include="Stores Procedures\SPR_Get_Invoice_Calculation.sql" />
     <Build Include="Stores Procedures\SPR_Insert_MobileActivation.sql" />
     <Build Include="Stores Procedures\SPR_Sync_Customer.sql" />
+    <Build Include="Stores Procedures\SPR_Get_MobileActivation.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
