@@ -1,11 +1,11 @@
 ﻿-- =============================================
 -- Author:		<AAMIR>
 -- Create date: <11th MAR 2021>
--- Update date: <>
+-- Update date: <13th MAR 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC SPR_Sync_Customer 2021
-CREATE PROCEDURE SPR_Sync_Customer
+CREATE PROCEDURE [dbo].[SPR_Sync_Customer]
 @LastChange INT=0
 
 AS
@@ -19,7 +19,7 @@ BEGIN
 
 	SELECT CustomerID,[Name],[Address],MobileNo,EmailID,CONVERT(INT,LastChange) LastChange
 	FROM CustomerMaster WITH(NOLOCK)
-	WHERE CONVERT(INT,LastChange)=@LastChange
+	WHERE CONVERT(INT,LastChange)>@LastChange
 
 	END TRY
 
@@ -49,4 +49,3 @@ BEGIN
 	END CATCH
 
 END
-GO
