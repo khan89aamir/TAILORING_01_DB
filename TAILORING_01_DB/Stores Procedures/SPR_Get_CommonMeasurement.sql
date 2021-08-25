@@ -1,7 +1,7 @@
 ﻿ -- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <22th JAN 2021>
--- Update date: <24th JAN 2021>
+-- Update date: <21st AUG 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].SPR_Get_CommonMeasurement 1
@@ -23,7 +23,7 @@ BEGIN
     INNER JOIN
     (
     select MeasurementID
-    FROM [dbo].[tblCommonMeasurement]
+    FROM [dbo].[tblCommonMeasurement] WITH(NOLOCK)
     GROUP BY [MeasurementID]
     HAVING COUNT(MeasurementID)>1
     )t ON cmt.MeasurementID=t.MeasurementID

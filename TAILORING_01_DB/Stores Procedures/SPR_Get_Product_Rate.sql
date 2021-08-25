@@ -1,7 +1,7 @@
 ﻿-- =============================================
 -- Author:		<AAMIR KHAN>
 -- Create date: <24th DEC 2020>
--- Update date: <22nd FEB 2021>
+-- Update date: <25rd AUG 2021>
 -- Description:	<Description,,>
 -- =============================================
 --EXEC [dbo].[SPR_Get_Product_Rate] 0,2
@@ -26,7 +26,7 @@ BEGIN
 
 	SELECT prm.GarmentRateID,pm.GarmentID,prm.GarmentCode,pm.GarmentName
 	,CONCAT(prm.GarmentCode,' ',pm.GarmentName) [GarmentCodeName]
-	,pm.GarmentType,ISNULL(prm.Rate,0) Rate
+	,pm.GarmentType,ISNULL(prm.Rate,0) Rate,prm.OrderType OrderTypeID
 	,(CASE prm.OrderType WHEN 1 THEN 'Urgent' WHEN 0 THEN 'Normal' END) OrderType
 	,IIF(pm.Photo IS NULL,pm.Photo,CONCAT(@ImagePath,pm.Photo)) Photo
 	,Convert(INT,prm.LastChange) LastChange
