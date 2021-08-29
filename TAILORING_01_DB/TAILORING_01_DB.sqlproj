@@ -209,6 +209,7 @@
     <Build Include="Stores Procedures\SPR_Sync_Customer.sql" />
     <Build Include="Stores Procedures\SPR_Get_MobileActivation.sql" />
     <Build Include="Stores Procedures\SPR_Sync_UserManagement.sql" />
+    <Build Include="Stores Procedures\SPR_Get_BodyPosture_Images_ByGarmentID.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.Post_TailoringConfig.sql" />
